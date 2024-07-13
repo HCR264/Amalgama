@@ -85,7 +85,7 @@ sleep 2
 
 paquetes_privativos=(mathematica)
 
-if "$DISTRO" == "ubuntu"; then
+if [ "$DISTRO" == "ubuntu" ]; then
   paquetes_libres=(gcc gfortran git python3)
 else
   paquetes_libres=(gcc gfortran git python)
