@@ -83,7 +83,7 @@ fi
 logo "Verificando que los programas requeridos/lenguajes/módulos estén instalados..."
 sleep 2 
 
-paquetes_libres=(asciiquarium gcc gfortran git python)
+paquetes_libres=(gcc gfortran git python)
 paquetes_privativos=(mathematica)
 
 is_installed() {
