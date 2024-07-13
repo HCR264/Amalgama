@@ -19,8 +19,9 @@ CMG=$(tput setaf 5) # Magenta
 BLD=$(tput bold) # Negrita
 CNC=$(tput sgr0) # Reiniciar 
 
-MCheck="["$CGR"\u2713"$CNC"]"
-MCross="["$CRE"\u2717"$CNC"]"
+MCheck="[ "$CGR"\u2713"$CNC" ]" # Palomita
+MCross="[ "$CRE"\u2717"$CNC" ]" # Tache
+MTime="[ "$CYE"\u23F3"$CNC"]" # Reloj
 
 
 # LOGO
@@ -58,21 +59,89 @@ while true; do
   esac
 done
 
+# VERIFICAR LA DISTRIBUCIÓN DE LINUX
+logo "Identificando sistema operativo..."
+sleep 2
+
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  DISTRO=$ID
+  logo "Hecho"
+  printf "%s%sSistema Operativo:%s %s\n\n" "${BLD}" "${CYE}" "${CNC}" "$DISTRO"
+  if [[ "$DISTRO" != "arch" && "$DISTRO" != "ubuntu" && "$DISTRO" != "fedora" ]]; then
+    printf "%sEste script solo funciona en Arch, Fedora o Ubuntu.\n\n" "${CRE}"
+    exit 1
+  fi
+  sleep 2
+else
+  logo "Error"
+  printf "%sNo se pudo identificar el sistema operativo."
+  exit 1
+fi
+
 # Verificar programas instalados
 logo "Verificando que los programas requeridos/lenguajes/módulos estén instalados..."
 sleep 2 
 
-paquetes=(mathematica python gcc gfortran git error_prueba)
+paquetes_libres=(asciiquarium gcc gfortran git python)
+paquetes_privativos=(mathematica)
 
 is_installed() {
   command -v "$1" &> /dev/null
 }
 
-for paquete in "${paquetes[@]}"; do
-  if is_installed "$paquete"; then
-    printf "%b %s está instalado.\n" "$MCheck" "$paquete"
+install() {
+  case "$DISTRO" in
+    "arch") 
+      sudo pacman -S "$1" --noconfirm >/dev/null
+      ;;
+    "ubuntu")
+      sudo apt-get update >/dev/null 
+      sudo apt-get install -y "$1" >/dev/null
+      ;;
+    "fedora")
+      sudo dnf install -y "$1" >/dev/null
+      ;;
+  esac
+}
+
+for paquete in "${paquetes_libres[@]}"; do
+  if ! is_installed "$paquete"; then
+    printf "%b %s no está instalado." "$MCross" "$paquete"
+    sleep 3
+
+    printf "\033[2K\r%b %s se está intentando instalar." "$MTime" "$paquete"
+    sleep 1
+    printf "\033[2K\r%b " "$MTime"
+    install "$paquete"
+
+    if is_installed "$paquete"; then
+      printf "\033[1A\033[2K\r%b %s está instalado.\n" "$MCheck" "$paquete"
+    else
+      printf "\033[1A\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$paquete" "${CRE}" "${CNC}"
+      exit 1
+    fi
   else
-    printf "%b %s no está instalado.\n" "$MCross" "$paquete"
+    printf "%b %s está instalado.\n" "$MCheck" "$paquete"
   fi
   sleep 1
 done
+
+for paquete in "${paquetes_privativos[@]}"; do
+  if is_installed "$paquete"; then
+    printf "%b %s está instalado.\n" "$MCheck" "$paquete"
+  else
+    printf "%b %s no está instalado. %s%sAquiera una licencia oficial.%s\n\n%sInstalación interrumpida.\n" "$MCross" "$paquete" "${CRE}" "${BLD}" "${CNC}" "${CRE}"
+    exit 1
+  fi
+  sleep 1
+done
+
+# DESCARGAR REPOSITORIO DE GITHUB 
+logo "Copiando repositorio de GitHub."
+
+command git clone "https://github.com/HCR264/Amalgama"
+
+logo "Finalizado."
+
+exit 1
