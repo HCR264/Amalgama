@@ -83,8 +83,13 @@ fi
 logo "Verificando que los programas requeridos/lenguajes/módulos estén instalados..."
 sleep 2 
 
-paquetes_libres=(gcc gfortran git python)
 paquetes_privativos=(mathematica)
+
+if "$DISTRO" == "ubuntu"; then
+  paquetes_libres=(gcc gfortran git python3)
+else
+  paquetes_libres=(gcc gfortran git python)
+fi
 
 is_installed() {
   command -v "$1" &> /dev/null

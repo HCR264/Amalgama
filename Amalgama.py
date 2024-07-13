@@ -12,7 +12,7 @@ import sys
 import termios
 import tty
 import shutil
-from wolframclient.evaluation import WolframLanguageSession
+#from wolframclient.evaluation import WolframLanguageSession
 
 from Modulos import FeynRules_Rutine_main
 
