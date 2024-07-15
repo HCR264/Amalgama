@@ -40,7 +40,7 @@ logo () {
 
 # VERIFICAR SI ES SUPERUSUARIO
 if [ $(whoami) = 'root' ]; then
-  echo "Este script no debe ejecutarse como super usuario."
+  echo "Este script no debe ejecutarse como superusuario."
   exit 1
 fi
 
