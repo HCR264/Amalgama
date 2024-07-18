@@ -1,0 +1,999 @@
+echo \#define micrO \"/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5\"  > include/microPath.h
+make -C CalcHEP_src  MICROMEGAS=MICROMEGAS
+make[1]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src»
+./getFlags
+MAKE= gmake
+CC=gcc by default
+UNAME=Linux ???
+numerical type Ok
+C compiler detected
+: shared liblary generation OK
+X11 OK
+Fortran compiler is detected
+gfortran OK
+FFLAGS OK
+./sbin/setPath /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src
+chmod 755 mkWORKdir
+make -C c_source
+make[2]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source»
+make -C getmem 
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/getmem»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include   -c -o getmem.o getmem.c
+ar -rv ../../lib/serv.a getmem.o
+ar: создаётся ../../lib/serv.a
+a - getmem.o
+ranlib ../../lib/serv.a
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/getmem»
+make -C chep_crt
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/chep_crt»
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o crt.o crt.c
+ar -rv ../../lib/serv.a crt.o
+a - crt.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o crt_util.o crt_util.c
+ar -rv ../../lib/serv.a crt_util.o
+a - crt_util.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o edittab.o edittab.c
+ar -rv ../../lib/serv.a edittab.o
+a - edittab.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o file_scr.o file_scr.c
+ar -rv ../../lib/serv.a file_scr.o
+a - file_scr.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o help.o help.c
+ar -rv ../../lib/serv.a help.o
+a - help.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o pictures.o pictures.c
+ar -rv ../../lib/serv.a pictures.o
+a - pictures.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o syst.o syst.c
+ar -rv ../../lib/serv.a syst.o
+a - syst.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o tex_util.o tex_util.c
+ar -rv ../../lib/serv.a tex_util.o
+a - tex_util.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o viewdir.o viewdir.c
+ar -rv ../../lib/serv.a viewdir.o
+a - viewdir.o
+gcc -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include     -c -o X11_crt0.o xwin/X11_crt0.c
+ar -rv ../../lib/serv.a X11_crt0.o
+a - X11_crt0.o
+ranlib ../../lib/serv.a
+cp ../../lib/serv.a ../../lib/servNoX11.a 	
+gcc -c -g -fsigned-char -std=gnu99 -fPIC  -Iinclude -I../getmem/include   -o noxwin/X11_crt0.o noxwin/X11_crt0.c
+ar d ../../lib/servNoX11.a X11_crt0.o
+ar r ../../lib/servNoX11.a noxwin/X11_crt0.o
+ranlib ../../lib/servNoX11.a
+rm noxwin/X11_crt0.o 
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/chep_crt»
+make -C service2
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/service2»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o calc.o calc.c
+ar -rv ../../lib/serv.a calc.o
+a - calc.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o fcompare.o fcompare.c
+ar -rv ../../lib/serv.a fcompare.o
+a - fcompare.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o files.o files.c
+ar -rv ../../lib/serv.a files.o
+a - files.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o paragraphs.o paragraphs.c
+ar -rv ../../lib/serv.a paragraphs.o
+a - paragraphs.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o parser.o parser.c
+ar -rv ../../lib/serv.a parser.o
+a - parser.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o read_func.o read_func.c
+ar -rv ../../lib/serv.a read_func.o
+a - read_func.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o sets.o sets.c
+ar -rv ../../lib/serv.a sets.o
+a - sets.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -c -o writeF.o writeF.c
+ar -rv ../../lib/serv.a writeF.o
+a - writeF.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../getmem/include    -o ../../bin/calc main_calc.c ../../lib/serv.a -lm
+rm writeF.o parser.o calc.o sets.o paragraphs.o fcompare.o read_func.o files.o
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/service2»
+make -C polynom  
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/polynom»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o polynom.o polynom.c
+ar -rv ../../lib/symb.a polynom.o
+ar: создаётся ../../lib/symb.a
+a - polynom.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o ps_tensor.o ps_tensor.c
+ar -rv ../../lib/symb.a ps_tensor.o
+a - ps_tensor.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o spinor.o spinor.c
+ar -rv ../../lib/symb.a spinor.o
+a - spinor.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o spur.o spur.c
+ar -rv ../../lib/symb.a spur.o
+a - spur.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o symb_reader.o symb_reader.c
+ar -rv ../../lib/symb.a symb_reader.o
+a - symb_reader.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o symb_tot.o symb_tot.c
+ar -rv ../../lib/symb.a symb_tot.o
+a - symb_tot.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o symb_wrt.o symb_wrt.c
+ar -rv ../../lib/symb.a symb_wrt.o
+a - symb_wrt.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../getmem/include  -I../service2/include  -I../symb/include  -DNUM_LONG_LONG   -c -o tensor.o tensor.c
+ar -rv ../../lib/symb.a tensor.o
+a - tensor.o
+ranlib ../../lib/symb.a
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/polynom»
+make -C ntools
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/ntools»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../num/include    -c -o 1d_integration.o 1d_integration.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a 1d_integration.o
+ar: создаётся /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a
+a - 1d_integration.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../num/include    -c -o drandXX.o drandXX.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a drandXX.o
+a - drandXX.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../num/include    -c -o n_proc.o n_proc.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a n_proc.o
+a - n_proc.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../num/include    -c -o polint.o polint.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a polint.o
+a - polint.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../num/include    -c -o vegas.o vegas.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a vegas.o
+a - vegas.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/ntools»
+make -C dynamicME
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/dynamicME»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include -I../service2/include -I../chep_crt/include -I../../include -I../ntools/include -DMAKE=\"make\"   -c -o dynamic_cs.o dynamic_cs.c
+dynamic_cs.c: В функции «makeProcList»:
+dynamic_cs.c:512:37: предупреждение: в передаче аргумента 1 «sprintf»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  512 |      if(i==j){ nnew++; sprintf(alias[i],"#_%d",nnew);} else alias[i][0]=0;
+      |                                ~~~~~^~~
+      |                                     |
+      |                                     char **
+In file included from include/dynamic_cs.h:4,
+                 from dynamic_cs.c:22:
+/usr/include/stdio.h:363:38: замечание: ожидался тип «char * restrict», но аргумент имеет тип «char **»
+  363 | extern int sprintf (char *__restrict __s,
+      |                     ~~~~~~~~~~~~~~~~~^~~
+dynamic_cs.c:518:23: предупреждение: в передаче аргумента 2 «strcpy»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  518 |   strcpy(process,alias[0]);
+      |                  ~~~~~^~~
+      |                       |
+      |                       char **
+In file included from dynamic_cs.c:11:
+/usr/include/string.h:141:70: замечание: ожидался тип «const char * restrict», но аргумент имеет тип «char **»
+  141 | extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+      |                                               ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+ar -rv ../../lib/dynamic_me.a dynamic_cs.o
+ar: создаётся ../../lib/dynamic_me.a
+a - dynamic_cs.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include -I../service2/include -I../chep_crt/include -I../../include -I../ntools/include -DMAKE=\"make\"   -c -o kin4.o kin4.c
+kin4.c: В функции «intDecay1»:
+kin4.c:84:34: предупреждение: в передаче аргумента 1 «gauss_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+   84 |    if(n_Gauss) return  gauss_arg(intDecay2_,sVar,0,1,n_Gauss);
+      |                                  ^~~~~~~~~~
+      |                                  |
+      |                                  double (*)(double,  sVarW *)
+In file included from kin4.c:8:
+../ntools/include/1d_integration.h:6:35: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+    6 | extern double gauss_arg( double (*func)(double,void*par),void*par,double a,double b, int n);
+      |                          ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c:85:35: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+   85 |    else       return  simpson_arg(intDecay2_,sVar,0,1,1.E-5,NULL);
+      |                                   ^~~~~~~~~~
+      |                                   |
+      |                                   double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c: В функции «decayPcmW»:
+kin4.c:115:35: предупреждение: в передаче аргумента 1 «gauss_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  115 |     if(n_Gauss) return gauss_arg( intDecay2_,sVar,0,1,n_Gauss)/M_PI/ME(m0,m1,m2);
+      |                                   ^~~~~~~~~~
+      |                                   |
+      |                                   double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:6:35: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+    6 | extern double gauss_arg( double (*func)(double,void*par),void*par,double a,double b, int n);
+      |                          ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c:116:36: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  116 |      else      return simpson_arg( intDecay2_,sVar,0,1,1.E-3,NULL)/M_PI/ME(m0,m1,m2);
+      |                                    ^~~~~~~~~~
+      |                                    |
+      |                                    double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c:125:35: предупреждение: в передаче аргумента 1 «gauss_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  125 |     if(n_Gauss) return gauss_arg( intDecay2_,sVar,0,1,n_Gauss)/M_PI/ME(m0,m1,m2);
+      |                                   ^~~~~~~~~~
+      |                                   |
+      |                                   double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:6:35: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+    6 | extern double gauss_arg( double (*func)(double,void*par),void*par,double a,double b, int n);
+      |                          ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c:126:35: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  126 |     else       return simpson_arg(intDecay2_,sVar,0,1,1.E-3,NULL)/M_PI/ME(m0,m1,m2);
+      |                                   ^~~~~~~~~~
+      |                                   |
+      |                                   double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin4.c:156:24: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  156 | double res=simpson_arg(intDecay1_,sVar,0,1,1E-5,NULL);
+      |                        ^~~~~~~~~~
+      |                        |
+      |                        double (*)(double,  sVarW *)
+../ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  sVarW *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../../lib/dynamic_me.a kin4.o
+a - kin4.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include -I../service2/include -I../chep_crt/include -I../../include -I../ntools/include -DMAKE=\"make\"   -c -o vp.o vp.c
+ar -rv ../../lib/dynamic_me.a vp.o
+a - vp.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include -I../service2/include -I../chep_crt/include -I../../include -I../ntools/include -DMAKE=\"make\"   -c -o VVdecay.o VVdecay.c
+ar -rv ../../lib/dynamic_me.a VVdecay.o
+a - VVdecay.o
+ranlib ../../lib/dynamic_me.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include -I../service2/include -I../chep_crt/include -I../../include -I../ntools/include -DMAKE=\"make\"   -c -o vp_dynam.o vp_dynam.c
+ar -rv ../../lib/dynamic_vp.a vp_dynam.o
+ar: создаётся ../../lib/dynamic_vp.a
+a - vp_dynam.o
+ranlib ../../lib/dynamic_vp.a
+rm vp_dynam.o
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/dynamicME»
+make -C plot 
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/plot»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include    -c -o plot.o plot.c
+ar -rv ../../lib/serv.a plot.o
+a - plot.o
+ranlib ../../lib/serv.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include   -o ../../bin/plot_view view_tab.c ../../lib/serv.a ../../lib/ntools.a -lX11 -lm
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/plot»
+make -C strfun
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/strfun»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o pdt.o pdt.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a pdt.o
+ar: создаётся /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a
+a - pdt.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_epa.o sf_epa.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_epa.o
+a - sf_epa.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_epp.o sf_epp.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_epp.o
+a - sf_epp.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_isr.o sf_isr.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_isr.o
+a - sf_isr.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_lha.o sf_lha.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_lha.o
+a - sf_lha.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_lsr.o sf_lsr.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_lsr.o
+a - sf_lsr.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o sf_pdt.o sf_pdt.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a sf_pdt.o
+a - sf_pdt.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o strfun.o strfun.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a strfun.o
+a - strfun.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include    -c -o pdf_dummy.o pdf_dummy.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a pdf_dummy.o
+ar: создаётся /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a
+a - pdf_dummy.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include   -o ../../bin/lhapdf2pdt lhapdf2pdt.c /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a -lm
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/strfun»
+make -C num 
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/num»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o 4_vector.o 4_vector.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a 4_vector.o
+a - 4_vector.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o alphas2.o alphas2.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a alphas2.o
+a - alphas2.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o comp.o comp.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a comp.o
+a - comp.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o cs_22.o cs_22.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a cs_22.o
+a - cs_22.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o cut.o cut.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a cut.o
+a - cut.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o decay.o decay.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a decay.o
+a - decay.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o err_code.o err_code.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a err_code.o
+a - err_code.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o histogram.o histogram.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a histogram.o
+a - histogram.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o interface.o interface.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a interface.o
+a - interface.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o kinaux.o kinaux.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a kinaux.o
+a - kinaux.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o kininpt.o kininpt.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a kininpt.o
+a - kininpt.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o mc_menu.o mc_menu.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a mc_menu.o
+a - mc_menu.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o n_calchep_.o n_calchep_.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a n_calchep_.o
+a - n_calchep_.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o num_serv.o num_serv.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a num_serv.o
+a - num_serv.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o param.o param.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a param.o
+a - param.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o phys_val.o phys_val.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a phys_val.o
+a - phys_val.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o qcdScale.o qcdScale.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a qcdScale.o
+a - qcdScale.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o q_kin.o q_kin.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a q_kin.o
+a - q_kin.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o rd_num.o rd_num.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a rd_num.o
+a - rd_num.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o regfunal.o regfunal.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a regfunal.o
+a - regfunal.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o regul.o regul.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a regul.o
+a - regul.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o runVegas.o runVegas.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a runVegas.o
+a - runVegas.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o rw_sess.o rw_sess.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a rw_sess.o
+a - rw_sess.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o spectrum.o spectrum.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a spectrum.o
+a - spectrum.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o subproc.o subproc.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a subproc.o
+a - subproc.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o tools.o tools.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a tools.o
+a - tools.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o width_12.o width_12.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a width_12.o
+a - width_12.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o usrfun_dummy.o usrfun_dummy.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a usrfun_dummy.o
+a - usrfun_dummy.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include    -c -o usrFF_dummy.o usrFF_dummy.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a usrFF_dummy.o
+a - usrFF_dummy.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/dummy.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include  -c -o /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/n_calchep.o n_calchep.c
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include  -DforMICROMEGAS -shared -o /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/sqme_aux.so  sqme_aux.c ferror.c -lm  
+gcc   -o ../../bin/Int -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../chep_crt/include  -I../plot/include  -I../service2/include  -I../getmem/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../strfun/include  userInt.c /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/serv.a /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/num_c.a /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/ntools.a -lm 
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/num»
+make -C tab
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/tab»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include  -I../mix_events/include  -I../dynamicME/include    -o ../../bin/events2tab events2tab.c dummy_output.c ../../lib/num_c.a ../../lib/serv.a ../../include/VandPgate.c ../../lib/dummy.a ../../lib/ntools.a -lX11 -rdynamic -ldl  -lm  -lpthread
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include  -I../mix_events/include  -I../dynamicME/include   -o ../../bin/show_distr show_distr.c dummy_output.c ../../lib/num_c.a ../../include/VandPgate.c ../../lib/serv.a ../../lib/dummy.a ../../lib/ntools.a -lX11 -rdynamic -ldl  -lm   -lpthread
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include  -I../mix_events/include  -I../dynamicME/include    -o ../../bin/sum_distr sum_distr.c dummy_output.c ../../lib/num_c.a ../../lib/serv.a ../../include/VandPgate.c ../../lib/dummy.a ../../lib/ntools.a -lX11 -rdynamic -ldl  -lm  -lpthread
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../../include  -I../num/include  -I../chep_crt/include  -I../service2/include  -I../getmem/include  -I../mix_events/include  -I../dynamicME/include    -o ../../bin/lhe2tab lhe2tab.c ../mix_events/readLHE.c dummy_output.c ../../lib/num_c.a ../../lib/serv.a ../../include/VandPgate.c ../../lib/dummy.a ../../lib/ntools.a -lX11 -rdynamic -ldl  -lm  -lpthread
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/tab»
+make -C SLHAplus
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/SLHAplus»
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o alpha_s.o alpha_s.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a alpha_s.o
+ar: создаётся /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a
+a - alpha_s.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o wrtAuxFile.o wrtAuxFile.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a wrtAuxFile.o
+a - wrtAuxFile.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o chDiag.o chDiag.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a chDiag.o
+a - chDiag.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o ferror.o ferror.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a ferror.o
+a - ferror.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o fixArg.o fixArg.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a fixArg.o
+a - fixArg.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o hgg.o hgg.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a hgg.o
+a - hgg.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o jacobi.o jacobi.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a jacobi.o
+a - jacobi.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o SLHAreader.o SLHAreader.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a SLHAreader.o
+a - SLHAreader.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I./include   -c -o fortran.o fortran.c
+ar -rv /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a fortran.o
+a - fortran.o
+ranlib /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/libSLHAplus.a
+rm -f *.o
+gfortran  -fno-automatic -c -o /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/lib/faux.o faux.f
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/SLHAplus»
+make -C mix_events
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/mix_events»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include  -I../symb/include  -I../polynom/include   -o ../../bin/event_mixer event_mixer.c event2pyth.c ch_events.c ../../lib/libSLHAplus.a -lm  
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../SLHAplus/include  -I../symb/include  -I../polynom/include    -o ../../bin/event2lhe event2lhe.c ch_events.c -lm  
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/mix_events»
+make -C symb
+make[3]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/symb»
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o chess.o chess.c
+ar -rv ../../lib/symb.a chess.o
+a - chess.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o colorf.o colorf.c
+ar -rv ../../lib/symb.a colorf.o
+a - colorf.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o cweight.o cweight.c
+ar -rv ../../lib/symb.a cweight.o
+a - cweight.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o denominators.o denominators.c
+ar -rv ../../lib/symb.a denominators.o
+a - denominators.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o ghosts.o ghosts.c
+ar -rv ../../lib/symb.a ghosts.o
+a - ghosts.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o lbl.o lbl.c
+ar -rv ../../lib/symb.a lbl.o
+a - lbl.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o model.o model.c
+ar -rv ../../lib/symb.a model.o
+a - model.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o m_utils.o m_utils.c
+ar -rv ../../lib/symb.a m_utils.o
+a - m_utils.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o numcheck.o numcheck.c
+ar -rv ../../lib/symb.a numcheck.o
+a - numcheck.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o physics.o physics.c
+ar -rv ../../lib/symb.a physics.o
+a - physics.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o prepdiag.o prepdiag.c
+ar -rv ../../lib/symb.a prepdiag.o
+a - prepdiag.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o pre_read.o pre_read.c
+ar -rv ../../lib/symb.a pre_read.o
+a - pre_read.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o process.o process.c
+ar -rv ../../lib/symb.a process.o
+a - process.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o pvars.o pvars.c
+ar -rv ../../lib/symb.a pvars.o
+a - pvars.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o r_code.o r_code.c
+ar -rv ../../lib/symb.a r_code.o
+a - r_code.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o reader0.o reader0.c
+ar -rv ../../lib/symb.a reader0.o
+a - reader0.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o read_mdl.o read_mdl.c
+ar -rv ../../lib/symb.a read_mdl.o
+a - read_mdl.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o rfactor.o rfactor.c
+ar -rv ../../lib/symb.a rfactor.o
+a - rfactor.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o saveres.o saveres.c
+ar -rv ../../lib/symb.a saveres.o
+a - saveres.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o screen.o screen.c
+ar -rv ../../lib/symb.a screen.o
+a - screen.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o s_files.o s_files.c
+s_files.c: В функции «pCompile»:
+s_files.c:236:61: предупреждение: в передаче аргумента 3 «pthread_create»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  236 |      for (k=0;k<nPROCSS1;k++) pthread_create(threads+k,NULL,pCompile_cycle, num+k);
+      |                                                             ^~~~~~~~~~~~~~
+      |                                                             |
+      |                                                             void * (*)(int *)
+In file included from s_files.c:7:
+/usr/include/pthread.h:204:36: замечание: ожидался тип «void * (*)(void *)», но аргумент имеет тип «void * (*)(int *)»
+  204 |                            void *(*__start_routine) (void *),
+      |                            ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../../lib/symb.a s_files.o
+a - s_files.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o sos.o sos.c
+ar -rv ../../lib/symb.a sos.o
+a - sos.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o symbolic.o symbolic.c
+ar -rv ../../lib/symb.a symbolic.o
+a - symbolic.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o syst2.o syst2.c
+ar -rv ../../lib/symb.a syst2.o
+a - syst2.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o constr.o diagram/constr.c
+ar -rv ../../lib/symb.a constr.o
+a - constr.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o diagrams.o diagram/diagrams.c
+ar -rv ../../lib/symb.a diagrams.o
+a - diagrams.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o diaprins.o diagram/diaprins.c
+ar -rv ../../lib/symb.a diaprins.o
+a - diaprins.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o draw_ampl.o diagram/draw_ampl.c
+ar -rv ../../lib/symb.a draw_ampl.o
+a - draw_ampl.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o drawdiag.o diagram/drawdiag.c
+ar -rv ../../lib/symb.a drawdiag.o
+a - drawdiag.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o showgrph.o diagram/showgrph.c
+ar -rv ../../lib/symb.a showgrph.o
+a - showgrph.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o squar.o diagram/squar.c
+ar -rv ../../lib/symb.a squar.o
+a - squar.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o c_out.o out/c_out.c
+ar -rv ../../lib/symb.a c_out.o
+a - c_out.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o form_out.o out/form_out.c
+ar -rv ../../lib/symb.a form_out.o
+a - form_out.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o l_string.o out/l_string.c
+ar -rv ../../lib/symb.a l_string.o
+a - l_string.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o math_out.o out/math_out.c
+ar -rv ../../lib/symb.a math_out.o
+a - math_out.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o optimise.o out/optimise.c
+ar -rv ../../lib/symb.a optimise.o
+a - optimise.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o out_serv.o out/out_serv.c
+ar -rv ../../lib/symb.a out_serv.o
+a - out_serv.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o procvar.o out/procvar.c
+ar -rv ../../lib/symb.a procvar.o
+a - procvar.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o reader_c.o out/reader_c.c
+ar -rv ../../lib/symb.a reader_c.o
+a - reader_c.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -c -o red_out.o out/red_out.c
+ar -rv ../../lib/symb.a red_out.o
+a - red_out.o
+echo chess.o colorf.o cweight.o denominators.o ghosts.o lbl.o model.o m_utils.o numcheck.o physics.o prepdiag.o pre_read.o process.o pvars.o r_code.o reader0.o read_mdl.o rfactor.o saveres.o screen.o s_files.o sos.o symbolic.o syst2.o constr.o diagrams.o diaprins.o draw_ampl.o drawdiag.o showgrph.o squar.o c_out.o form_out.o l_string.o math_out.o optimise.o out_serv.o procvar.o reader_c.o red_out.o
+chess.o colorf.o cweight.o denominators.o ghosts.o lbl.o model.o m_utils.o numcheck.o physics.o prepdiag.o pre_read.o process.o pvars.o r_code.o reader0.o read_mdl.o rfactor.o saveres.o screen.o s_files.o sos.o symbolic.o syst2.o constr.o diagrams.o diaprins.o draw_ampl.o drawdiag.o showgrph.o squar.o c_out.o form_out.o l_string.o math_out.o optimise.o out_serv.o procvar.o reader_c.o red_out.o
+ranlib ../../lib/symb.a
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG   -o ../../bin/s_calchep s_calchep.c ../../lib/symb.a ../../lib/serv.a ../../lib/dynamic_vp.a ../../lib/dynamic_me.a ../../lib/libSLHAplus.a ../../lib/dummy.a ../../lib/ntools.a -lX11 -lm    -rdynamic -ldl  -lpthread
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG    -o ../../bin/make_VandP make_VandP.c ../../lib/symb.a ../../lib/serv.a ../../lib/dynamic_me.a ../../lib/ntools.a -lX11 -lm   -rdynamic -ldl   -lpthread
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG -o ../../sbin/make-j make-j.c -lm -lpthread      
+gcc -g -fsigned-char -std=gnu99 -fPIC -Iinclude -I../chep_crt/include  -I../service2/include  -I../polynom/include  -I../getmem/include  -I../plot/include  -I../dynamicME/include  -I../SLHAplus/include  -I../ntools/include  -I../num/include  -I../../include  -DNUM_LONG_LONG    -o ../../sbin/makeVrtLib makeVrtLib.c ../../lib/symb.a ../../lib/serv.a ../../lib/dynamic_me.a ../../lib/ntools.a -lX11 -lm  -lpthread
+make[3]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source/symb»
+make[2]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src/c_source»
+#--------------------------------------------------------
+# CalcHEP has compiled successfuly and can be started.
+# The manual can be found on the CalcHEP website:
+#      http://theory.sinp.msu.ru/~pukhov/calchep.html
+# The next step is typically to run 
+#      ./mkWORKdir  <new_dir>
+# where <new_dir> is the new directory where you will do
+# your calculations.  After creating this directory, you
+# should cd into it and run calchep or calchep_batch.
+# Please see the manual for further details.
+#---------------------------------------------------------"
+make[1]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/CalcHEP_src»
+make -C sources
+make[1]: вход в каталог «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/sources»
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o 22_par.o 22_par.c
+ar -rv ../lib/micromegas.a 22_par.o
+ar: создаётся ../lib/micromegas.a
+a - 22_par.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o all_22_ploc.o all_22_ploc.c
+ar -rv ../lib/micromegas.a all_22_ploc.o
+a - all_22_ploc.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o common.o common.c
+ar -rv ../lib/micromegas.a common.o
+a - common.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o cs22.o cs22.c
+ar -rv ../lib/micromegas.a cs22.o
+a - cs22.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o DDexclusion.o DDexclusion.c
+DDexclusion.c: В функции «initDDexpCS»:
+DDexclusion.c:1481:44: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1481 |            dNdE_CRESST_2019[i]=simpson_arg(CRESST_smooth, dNdE ,Emin,eCresst+nSigmaCresst*sigmaCresst,1E-2,NULL);
+      |                                            ^~~~~~~~~~~~~
+      |                                            |
+      |                                            double (*)(double,  double *)
+In file included from ../include/micromegas_aux.h:22,
+                 from DDexclusion.c:2:
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+DDexclusion.c: В функции «initDDexp»:
+DDexclusion.c:1635:44: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1635 |            dNdE_CRESST_2019[i]=simpson_arg(CRESST_smooth, dNdE ,Emin,eCresst+nSigmaCresst*sigmaCresst,1E-2,NULL);
+      |                                            ^~~~~~~~~~~~~
+      |                                            |
+      |                                            double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../lib/micromegas.a DDexclusion.o
+a - DDexclusion.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o DDspinDep.o DDspinDep.c
+ar -rv ../lib/micromegas.a DDspinDep.o
+a - DDspinDep.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o DDvelocity.o DDvelocity.c
+ar -rv ../lib/micromegas.a DDvelocity.o
+a - DDvelocity.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o decayFort.o decayFort.c
+ar -rv ../lib/micromegas.a decayFort.o
+a - decayFort.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o directDet.o directDet.c
+ar -rv ../lib/micromegas.a directDet.o
+a - directDet.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o directDetFort.o directDetFort.c
+ar -rv ../lib/micromegas.a directDetFort.o
+a - directDetFort.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o displayPlot.o displayPlot.c
+ar -rv ../lib/micromegas.a displayPlot.o
+a - displayPlot.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o dynamic_cs.o dynamic_cs.c
+ar -rv ../lib/micromegas.a dynamic_cs.o
+a - dynamic_cs.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o f2c2f.o f2c2f.c
+ar -rv ../lib/micromegas.a f2c2f.o
+a - f2c2f.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o fortran.o fortran.c
+ar -rv ../lib/micromegas.a fortran.o
+a - fortran.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o freezein.o freezein.c
+freezein.c: В функции «TdYdTfreezeIn»:
+freezein.c:1502:77: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1502 |    for(int k=0;k<nIntervals;k++) res+=T*arg->C/(4*pow(M_PI,4))*simpson_arg( NabDmDmInt,arg,intervals[2*k],intervals[2*k+1],1E-3,&err)*(1+hEffLnDiff(T)/3)/(s*H);
+      |                                                                             ^~~~~~~~~~
+      |                                                                             |
+      |                                                                             double (*)(double,  frin22Par *)
+In file included from ../include/micromegas_aux.h:22,
+                 from freezein.c:12:
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  frin22Par *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+freezein.c: В функции «YfreezeIn22»:
+freezein.c:1546:20: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1546 |    res=simpson_arg(TdYdTfreezeInLn, &par, log(T0),log(TR),1E-3,NULL);    // temperature integration
+      |                    ^~~~~~~~~~~~~~~
+      |                    |
+      |                    double (*)(double,  frin22Par *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  frin22Par *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../lib/micromegas.a freezein.o
+a - freezein.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o hbBlock.o hbBlock.c
+ar -rv ../lib/micromegas.a hbBlock.o
+a - hbBlock.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o higgsmass.o higgsmass.c
+ar -rv ../lib/micromegas.a higgsmass.o
+a - higgsmass.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o ic22.o ic22.c
+ar -rv ../lib/micromegas.a ic22.o
+a - ic22.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o kin23.o kin23.c
+kin23.c: В функции «dIdcs2»:
+kin23.c:112:95: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  112 | static double dIdcs2(double cs1,arg23str*arg) { arg->cs1=cs1; int err; double res=simpson_arg(Idfi,  arg, -1,1, 1E-3,&err); arg->simpsonErr|=err; return res; }
+      |                                                                                               ^~~~
+      |                                                                                               |
+      |                                                                                               double (*)(double,  arg23str *)
+In file included from ../include/micromegas_aux.h:22,
+                 from kin23.c:2:
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  arg23str *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin23.c: В функции «dIdM»:
+kin23.c:113:95: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  113 | static double dIdM(double M, arg23str*arg)    { arg->M45=M;   int err; double res=simpson_arg(dIdcs2,arg, -1,1, 1E-3,&err); arg->simpsonErr|=err; return res; }
+      |                                                                                               ^~~~~~
+      |                                                                                               |
+      |                                                                                               double (*)(double,  arg23str *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  arg23str *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin23.c: В функции «cs23Pcm»:
+kin23.c:215:27: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  215 |     double r= simpson_arg(dIdM_x,&arg23,   0.,1, 0.001,&err_);
+      |                           ^~~~~~
+      |                           |
+      |                           double (*)(double,  arg23str *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  arg23str *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+kin23.c:229:26: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  229 |     double r=simpson_arg(dIdM_wx, &arg23, 0, 1, 0.01,&err_);
+      |                          ^~~~~~~
+      |                          |
+      |                          double (*)(double,  arg23str *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  arg23str *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../lib/micromegas.a kin23.o
+a - kin23.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o lhapdf.o lhapdf.c
+ar -rv ../lib/micromegas.a lhapdf.o
+a - lhapdf.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o LilithMO.o LilithMO.c
+ar -rv ../lib/micromegas.a LilithMO.o
+a - LilithMO.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o limits.o limits.c
+ar -rv ../lib/micromegas.a limits.o
+a - limits.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o lineq.o lineq.c
+ar -rv ../lib/micromegas.a lineq.o
+a - lineq.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o maxGap.o maxGap.c
+ar -rv ../lib/micromegas.a maxGap.o
+a - maxGap.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o neutrino.o neutrino.c
+ar -rv ../lib/micromegas.a neutrino.o
+a - neutrino.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o oddPrtcls.o oddPrtcls.c
+ar -rv ../lib/micromegas.a oddPrtcls.o
+a - oddPrtcls.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o omega.o omega.c
+omega.c:398:8: предупреждение: по умолчанию возвращаемый тип функции - «int» [-Wimplicit-int]
+  398 | static delInitMark(void)
+      |        ^~~~~~~~~~~
+omega.c: В функции «pin2Sigma22»:
+omega.c:3684:32: предупреждение: в передаче аргумента 1 «gauss_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 3684 |      if(_fast_) dSum=gauss_arg(dSdC,arg, intervals[2*i], intervals[2*i+1],20);
+      |                                ^~~~
+      |                                |
+      |                                double (*)(double,  cs22IntSt *)
+In file included from ../include/micromegas_aux.h:22,
+                 from omega.c:4:
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:6:35: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  cs22IntSt *)»
+    6 | extern double gauss_arg( double (*func)(double,void*par),void*par,double a,double b, int n);
+      |                          ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+omega.c:3687:34: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 3687 |                 dSum=simpson_arg(dSdC,arg, intervals[2*i], intervals[2*i+1],1E-2,&err);
+      |                                  ^~~~
+      |                                  |
+      |                                  double (*)(double,  cs22IntSt *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  cs22IntSt *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+omega.c: В функции «vSigmaNstat»:
+omega.c:4077:41: предупреждение: в передаче аргумента 1 «gauss_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 4077 |               if(_fast_) res+=gauss_arg(u_integrand_vs,&argI,intervals[2*i],intervals[2*i+1],20);
+      |                                         ^~~~~~~~~~~~~~
+      |                                         |
+      |                                         double (*)(double,  cs22IntSt *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:6:35: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  cs22IntSt *)»
+    6 | extern double gauss_arg( double (*func)(double,void*par),void*par,double a,double b, int n);
+      |                          ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+omega.c:4078:39: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 4078 |               else { res+=simpson_arg(u_integrand_vs,&argI,intervals[2*i],intervals[2*i+1],1E-3,&err);
+      |                                       ^~~~~~~~~~~~~~
+      |                                       |
+      |                                       double (*)(double,  cs22IntSt *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  cs22IntSt *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+omega.c: В функции «makeVVCycle»:
+omega.c:4178:60: предупреждение: в передаче аргумента 3 «pthread_create»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 4178 |      for (int k=0;k<nCh;k++) pthread_create(threads+k,NULL,VVCycle,&T);
+      |                                                            ^~~~~~~
+      |                                                            |
+      |                                                            void (*)(void *)
+In file included from ../include/../CalcHEP_src/c_source/dynamicME/include/dynamic_cs.h:5,
+                 from ../include/micromegas.h:16,
+                 from omega.c:3:
+/usr/include/pthread.h:204:36: замечание: ожидался тип «void * (*)(void *)», но аргумент имеет тип «void (*)(void *)»
+  204 |                            void *(*__start_routine) (void *),
+      |                            ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+omega.c: В функции «interpolateCycle»:
+omega.c:4446:31: предупреждение: в передаче аргумента 1 «buildInterpolation_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 4446 |        buildInterpolation_arg(vSigmaNstatLogT,allChannels+j, log(Tend), log(Tstart), eps, delta,
+      |                               ^~~~~~~~~~~~~~~
+      |                               |
+      |                               double (*)(double,  vSigmaNArg *)
+../include/micromegas_aux.h:103:44: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  vSigmaNArg *)»
+  103 | extern int buildInterpolation_arg(double (*Fun)(double,void*), void*arg, double x1,double x2, double eps,double delt, int*N_, double**xa_, double**ya_);
+      |                                   ~~~~~~~~~^~~~~~~~~~~~~~~~~~
+omega.c: В функции «initDarkOmegaTab»:
+omega.c:4481:59: предупреждение: в передаче аргумента 3 «pthread_create»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 4481 |     for (int k=0;k<nCh;k++) pthread_create(threads+k,NULL,interpolateCycle,NULL);
+      |                                                           ^~~~~~~~~~~~~~~~
+      |                                                           |
+      |                                                           void (*)(void)
+/usr/include/pthread.h:204:36: замечание: ожидался тип «void * (*)(void *)», но аргумент имеет тип «void (*)(void)»
+  204 |                            void *(*__start_routine) (void *),
+      |                            ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../lib/micromegas.a omega.o
+a - omega.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o pdt2.o pdt2.c
+ar -rv ../lib/micromegas.a pdt2.o
+a - pdt2.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o propagate.o propagate.c
+ar -rv ../lib/micromegas.a propagate.o
+a - propagate.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o pythonversion.o pythonversion.c
+ar -rv ../lib/micromegas.a pythonversion.o
+a - pythonversion.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o SMhdecay.o SMhdecay.c
+ar -rv ../lib/micromegas.a SMhdecay.o
+a - SMhdecay.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o smodels.o smodels.c
+ar -rv ../lib/micromegas.a smodels.o
+a - smodels.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o Sommerfeld.o Sommerfeld.c
+ar -rv ../lib/micromegas.a Sommerfeld.o
+a - Sommerfeld.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o spectra.o spectra.c
+spectra.c: В функции «spectrInfo»:
+spectra.c:576:38: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  576 |     if(Etot)*Etot=tab[0]*simpson_arg(zInterpE,tab, zmin, zmax,1.E-4,NULL);
+      |                                      ^~~~~~~~
+      |                                      |
+      |                                      double (*)(double,  double *)
+In file included from ../include/micromegas_aux.h:22,
+                 from spectra.c:2:
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+spectra.c:577:24: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  577 |     return simpson_arg(zInterp,tab, zmin, zmax,1.E-4,NULL);
+      |                        ^~~~~~~
+      |                        |
+      |                        double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+spectra.c: В функции «spectrInt»:
+spectra.c:601:22: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  601 |   return simpson_arg(zInterp,tab, zmin, zmax,1.E-4,NULL);
+      |                      ^~~~~~~
+      |                      |
+      |                      double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+spectra.c: В функции «boost»:
+spectra.c:721:61: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+  721 |     if (e1>=e2) tab_out[l]=0; else tab_out[l]=e*simpson_arg(zInterp,tab_in, log(e1/tab[0]),log(e2/tab[0]),1.E-3,&err_)/2/shY;
+      |                                                             ^~~~~~~
+      |                                                             |
+      |                                                             double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+spectra.c: В функции «PlanckCMB»:
+spectra.c:1892:24: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1892 |   double r=simpson_arg(intEA,Sg, Egmin,Sg[0],1E-3,NULL)/2 + simpson_arg(intEe,Se,Eemin,Se[0], 1E-3,NULL);
+      |                        ^~~~~
+      |                        |
+      |                        double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+spectra.c:1892:73: предупреждение: в передаче аргумента 1 «simpson_arg»: несовместимый тип указателя [-Wincompatible-pointer-types]
+ 1892 |   double r=simpson_arg(intEA,Sg, Egmin,Sg[0],1E-3,NULL)/2 + simpson_arg(intEe,Se,Eemin,Se[0], 1E-3,NULL);
+      |                                                                         ^~~~~
+      |                                                                         |
+      |                                                                         double (*)(double,  double *)
+../include/../CalcHEP_src/c_source/ntools/include/1d_integration.h:10:37: замечание: ожидался тип «double (*)(double,  void *)», но аргумент имеет тип «double (*)(double,  double *)»
+   10 | extern double simpson_arg( double (*func)(double,void*par), void*par,double a,double b,double eps, int*err);
+      |                            ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~
+ar -rv ../lib/micromegas.a spectra.o
+a - spectra.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o spectraFort.o spectraFort.c
+ar -rv ../lib/micromegas.a spectraFort.o
+a - spectraFort.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o stiff.o stiff.c
+ar -rv ../lib/micromegas.a stiff.o
+a - stiff.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o superIso.o superIso.c
+ar -rv ../lib/micromegas.a superIso.o
+a - superIso.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o tdUniverse.o tdUniverse.c
+ar -rv ../lib/micromegas.a tdUniverse.o
+a - tdUniverse.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o tools.o tools.c
+ar -rv ../lib/micromegas.a tools.o
+a - tools.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o Twidth22.o Twidth22.c
+ar -rv ../lib/micromegas.a Twidth22.o
+a - Twidth22.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o units.o units.c
+ar -rv ../lib/micromegas.a units.o
+a - units.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o var_service.o var_service.c
+var_service.c: В функции «assignVal»:
+var_service.c:16:23: предупреждение: передача аргумента 1 «varAddress» отменяет квалификатор «const» указуемого типа [-Wdiscarded-qualifiers]
+   16 |   REAL * a=varAddress(name);
+      |                       ^~~~
+In file included from var_service.c:1:
+../include/micromegas.h:166:31: замечание: ожидался тип «char *», но аргумент имеет тип «const char *»
+  166 | extern REAL*varAddress(char * name);
+      |                        ~~~~~~~^~~~
+ar -rv ../lib/micromegas.a var_service.o
+a - var_service.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o vsigma.o vsigma.c
+ar -rv ../lib/micromegas.a vsigma.o
+a - vsigma.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o wPolar.o wPolar.c
+ar -rv ../lib/micromegas.a wPolar.o
+a - wPolar.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o Zprimelim.o Zprimelim.c
+ar -rv ../lib/micromegas.a Zprimelim.o
+a - Zprimelim.o
+ranlib ../lib/micromegas.a 
+rm -f *.o
+gcc -g -fsigned-char -std=gnu99 -fPIC -I../include   -c -o improveCS.o improveCS.c
+ar -rv ../lib/dummy.a improveCS.o
+ar: создаётся ../lib/dummy.a
+a - improveCS.o
+rm -f improveCS.o
+./maxGap/makePath /home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/sources/maxGap >maxGap/pathData.f
+gfortran  -fno-automatic  -shared  -o ../lib/maxGap.so -ffixed-line-length-none -fPIC maxGap/*.f 	
+maxGap/CERN_Stuff.f:46:20:
+
+   46 |     1  AQ=Q1(I)+Y*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 1 в (1)
+maxGap/CERN_Stuff.f:54:20:
+
+   54 |     2  AQ=Q2(I)+V*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 2 в (1)
+maxGap/CERN_Stuff.f:63:20:
+
+   63 |     3  AQ=Q3(I)+Y*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 3 в (1)
+maxGap/CERN_Stuff.f:175:22:
+
+  175 |    12   SUM=A*SUM+C(K)
+      |                      1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 12 в (1)
+maxGap/CERN_Stuff.f:385:20:
+
+  385 |     2  AQ=Q1(I)+Y*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 2 в (1)
+maxGap/CERN_Stuff.f:392:20:
+
+  392 |     3  AQ=Q1(I)+X*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 3 в (1)
+maxGap/CERN_Stuff.f:399:20:
+
+  399 |     4  AQ=Q2(I)+X*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 4 в (1)
+maxGap/CERN_Stuff.f:406:20:
+
+  406 |     5  AQ=Q3(I)+X*AQ
+      |                    1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 5 в (1)
+maxGap/CERN_Stuff.f:452:12:
+
+  452 |     1  U=U+1
+      |            1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 1 в (1)
+maxGap/CERN_Stuff.f:456:12:
+
+  456 |     2  F=F*U
+      |            1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 2 в (1)
+maxGap/CERN_Stuff.f:465:11:
+
+  465 |     3 B1=B0
+      |           1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 3 в (1)
+maxGap/CERN_Stuff.f:623:30:
+
+  623 |   195    TWOM24 = TWOM24 * 0.5
+      |                              1
+Предупреждение: Fortran 2018 deleted feature: завершающий оператор DO цикла не END DO или CONTINUE с меткой 195 в (1)
+make[1]: выход из каталога «/home/pukhov/MICROMEGAS/2024/micromegas_6.0.5/sources»
