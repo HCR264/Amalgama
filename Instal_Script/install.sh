@@ -59,6 +59,9 @@ while true; do
   esac
 done
 
+# OBTENER DIRECTORIO
+actual_dir=$PWD
+
 # VERIFICAR LA DISTRIBUCIÓN DE LINUX
 logo "Identificando sistema operativo..."
 sleep 2
@@ -146,6 +149,14 @@ done
 logo "Copiando repositorio de GitHub."
 
 command git clone "https://github.com/HCR264/Amalgama"
+
+sleep 3
+
+# ELIMINAR ARCHIVOS DE GITHUB
+logo "Finalizando instalación..."
+command cd Amalgama
+rm -r .git .gitattributes README.md
+sleep 2
 
 logo "Finalizado."
 
