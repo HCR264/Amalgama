@@ -8,59 +8,13 @@ Created on Tue May 28 13:30:25 2024
 
 #   MODULOS
 import os
-import sys
-import termios
-import tty
 import shutil
-#from wolframclient.evaluation import WolframLanguageSession
 
-from Modulos import FeynRules_Rutine_main
-
-
-#   FUNCIONES
-# Limpiar pantalla
-def clear_screen():
-    os.system('clear')
-
-
-# Capturar las teclas pulsadas
-def get_key():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-
-    try:
-        tty.setraw(fd)
-        ch = sys.stdin.read(1)
-        if ch == '\x1b':
-            ch += sys.stdin.read(2)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
-
-
-# Imprimir las opciones del menú
-def print_menu(options, selected_index, menu_info):
-    clear_screen()
-    print(menu_info)
-    print('\n')
-    for i, option in enumerate(options):
-        prefix = "> " if i == selected_index else "  "
-        print(f"{prefix}{option}")
-
-
-# Mostrar menú
-def menu(options, menu_info):
-    selected_index = 0
-    while True:
-        print_menu(options, selected_index, menu_info)
-        key = get_key()
-
-        if key == '\x1b[A':  # Arriba
-            selected_index = (selected_index - 1) % len(options)
-        elif key == '\x1b[B':  # Abajo
-            selected_index = (selected_index + 1) % len(options)
-        elif key == '\r':  # Enter
-            return selected_index
+from Routines.feynrules_routine import feynrules_routine
+from Routines.micromegas_routine import main_micromegas
+from Modulos.menu import clear_screen
+from Modulos.menu import menu
+from Modulos.files import get_dir
 
 
 # Verificar la existencia de un archivo
@@ -161,11 +115,10 @@ def FeynRulesMenu():
     options = [""]
 
 
-
 # Menu Principal
 def main_menu():
     menu_info = "Selecciones la acción que quiere realizar."
-    options = ["Importar un modelo", "Ver modelos", "FeynRules", "Nada, nadota", "Salir"]
+    options = ["Importar un modelo", "Ver modelos", "FeynRules", "MicrOMEGAS", "Nada, nadota", "Salir"]
 
     while True:
         selected = menu(options, menu_info)
@@ -177,7 +130,9 @@ def main_menu():
         elif options[selected] == "Ver modelos":
             model_list()
         elif options[selected] == "FeynRules":
-            FeynRules_Rutine_main()
+            feynrules_routine(GlobalDir, ModelsDir, FeynRulesDir)
+        elif options[selected] == "MicrOMEGAS":
+            main_micromegas(GlobalDir)
         else:
             print(f"Seleccionó: {options[selected]}")
             input("Presiona Enter para continuar...")
@@ -190,14 +145,14 @@ def create_dir(src_dir, dir_name):
 # MAIN
 def main():
     # VARIABLES GLOBALES
-    global GlogalDir
+    global GlobalDir
     global FeynRulesDir
     global ModelsDir
     global Plantilla_FeynRules_NB
     global Sesions_Dir
 
     # OBTENER EL DIRECTORIO DE TRABAJO
-    GlobalDir = os.getcwd()
+    GlobalDir = get_dir()
 
     # Definir las carpetas de trabajo
     FeynRulesDir = GlobalDir + '/feynrules-current'
