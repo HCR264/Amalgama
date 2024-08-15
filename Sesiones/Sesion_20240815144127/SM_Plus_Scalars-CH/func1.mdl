@@ -1,0 +1,21 @@
+SM_Plus_Scalars
+ Constraints
+  Name         |> Expression                                                                                                                                                             <|
+%*slhaFound    |1+access("vars1.lha", 0)                                                                                       %Check whether LHA file is present.
+%*rdSLHA       |if(slhaFound,slhaRead("vars1.lha", 0),-1)                                                                      %Read LHA file.
+%lS            |if(slhaFound,if(slhaValExists("INVSCALAR",1,1),slhaVal("INVSCALAR",0,1,1),lSDef),lSDef)                        %lS                                                
+%om            |if(slhaFound,if(slhaValExists("INVSCALAR",1,2),slhaVal("INVSCALAR",0,1,2),omDef),omDef)                        %om                                                
+%MSk           |if(slhaFound,if(slhaValExists("MASS",1,9000001),slhaVal("MASS",0,1,9000001),MSkDef),MSkDef)                    %Mass of S4.                                       
+%MSk           |if(slhaFound,if(slhaValExists("MASS",1,9000002),slhaVal("MASS",0,1,9000002),MSkDef),MSkDef)                    %Mass of S4.                                       
+%MSk           |if(slhaFound,if(slhaValExists("MASS",1,9000003),slhaVal("MASS",0,1,9000003),MSkDef),MSkDef)                    %Mass of S4.                                       
+%MSk           |if(slhaFound,if(slhaValExists("MASS",1,9000004),slhaVal("MASS",0,1,9000004),MSkDef),MSkDef)                    %Mass of S4.                                       
+x1x0           |(-3*lS)/4.                                                                                                     % S1   S1   S1   S1    coupling.
+x2x0           |-lS/4.                                                                                                         % S1   S1   S2   S2    coupling.
+x3x0           |-lS/4.                                                                                                         % S1   S1   S3   S3    coupling.
+x4x0           |-lS/4.                                                                                                         % S1   S1   S4   S4    coupling.
+x5x0           |(-3*lS)/4.                                                                                                     % S2   S2   S2   S2    coupling.
+x6x0           |-lS/4.                                                                                                         % S2   S2   S3   S3    coupling.
+x7x0           |-lS/4.                                                                                                         % S2   S2   S4   S4    coupling.
+x8x0           |(-3*lS)/4.                                                                                                     % S3   S3   S3   S3    coupling.
+x9x0           |-lS/4.                                                                                                         % S3   S3   S4   S4    coupling.
+x10x0          |(-3*lS)/4.                                                                                                     % S4   S4   S4   S4    coupling.
