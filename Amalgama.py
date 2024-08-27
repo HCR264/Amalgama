@@ -152,6 +152,7 @@ def main():
     global Plantilla_FeynRules_NB
     global Sesions_Dir
 
+
     # OBTENER EL DIRECTORIO DE TRABAJO
     GlobalDir = get_dir()
 
