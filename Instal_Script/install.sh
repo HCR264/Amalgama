@@ -160,10 +160,12 @@ sleep 2
 
 # INSTALAR MICROMEGAS
 logo "Instalando micrOMEGAS..."
+sleep 2
 command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz?download=1
 command tar -zxvf micromegas_6.1.15.tgz
 command cd micromegas_6.1.15/
 command make
+sleep 5
 
 logo "Finalizado."
 
