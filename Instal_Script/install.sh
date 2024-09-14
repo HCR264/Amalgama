@@ -149,22 +149,17 @@ done
 logo "Copiando repositorio de GitHub."
 
 command git clone "https://github.com/HCR264/Amalgama"
-
 sleep 3
-
-# ELIMINAR ARCHIVOS DE GITHUB
-logo "Finalizando instalación..."
-command cd Amalgama
-sleep 2
 
 # INSTALAR MICROMEGAS
 logo "Instalando micrOMEGAS..."
-sleep 2
+sleep 3
+command cd Amalgama
 command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz
 command tar -zxvf micromegas_6.1.15.tgz
 command cd micromegas_6.1.15/
 command make
-sleep 5
+sleep 3
 
 logo "Finalizado."
 
