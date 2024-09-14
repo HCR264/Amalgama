@@ -155,7 +155,6 @@ sleep 3
 # ELIMINAR ARCHIVOS DE GITHUB
 logo "Finalizando instalación..."
 command cd Amalgama
-rm -r .git .gitattributes README.md Instal_Script
 sleep 2
 
 # INSTALAR MICROMEGAS
