@@ -158,6 +158,13 @@ command cd Amalgama
 rm -r .git .gitattributes README.md Instal_Script
 sleep 2
 
+# INSTALAR MICROMEGAS
+logo "Instalando micrOMEGAS..."
+command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz?download=1
+command tar -zxvf micromegas_6.1.15.tgz
+command cd micromegas_6.1.15/
+command make
+
 logo "Finalizado."
 
 exit 1
