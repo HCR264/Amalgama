@@ -58,7 +58,7 @@ M$ClassesDescription = {
    (* The new scalar sector *)
   S[4] == {
         ClassName -> Sk,
-        ClassMembers :> Table[Symbol["S" <> ToString[k]], {k, Nf}],
+        ClassMembers -> Table["~S" <> ToString[k], {k, Nf}],
         SelfConjugate -> True,
         Indices -> {Index[SGen]},
         FlavorIndex -> SGen,

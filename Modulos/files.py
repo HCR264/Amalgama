@@ -1,6 +1,7 @@
 import os
 from Modulos.menu import menu
 from datetime import datetime
+from shutil import move
 
 
 # Obtener el directorio de trabajo
@@ -32,7 +33,7 @@ def find_files_wth_ext(search_path, ext):
     find_files = []
     for file in os.listdir(search_path):
         if file.endswith(ext):
-            find_files.append(filter)
+            find_files.append(file)
     return find_files
 
 
@@ -41,3 +42,8 @@ def code_name(key):
     code = datetime.now()
     sesion_name = key + '_Sesion_' + code.strftime('%Y%m%d%H%M%S')
     return sesion_name
+
+
+# Mover archivos
+def move_files(dir_src, dir_dst, file_name): 
+   input() 
