@@ -1,8 +1,0 @@
-SM_Plus_Scalars
- Parameters
-  Name         | Value       |> Comment                                                                <|
-lS             |0.5          |lS                                                                        |
-om             |0.5          |om                                                                        |
-MSk            |40           |Mass of S4.                                                               |
-E              |2.71828182845|The base of the natural logarithm.                                        |
-Pi             |3.14159265358|The circumference of a circle divided by the diameter.                    |
