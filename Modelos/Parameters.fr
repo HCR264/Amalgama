@@ -132,7 +132,7 @@ gs == {
 	TeX              -> Subscript[g, s],
 	ComplexParameter -> False,
 	ParameterType    -> Internal,
-	Value            -> Sqrt[4 Pi aS],
+	Value            -> Sqrt[4*Pi*aS],
 	InteractionOrder -> {QCD, 1},
 	ParameterName    -> G,
 	Description      -> "Strong coupling constant"},
@@ -176,7 +176,6 @@ MH0 == {
 	ComplexParameter -> False,
 	Value		 -> mmH0,
 	Description      -> "Dark scalar mass internal"},
-
 MA0 == {
 	TeX              -> Subscript[m, A],
 	ParameterType    -> Internal,
@@ -243,7 +242,7 @@ GH == {
  TeX              -> Subscript[G, H],
 	ParameterType    -> Internal,
 	InteractionOrder -> {HIG, 1},
-	Value            -> -gs^2/(4*Pi(3*Pi*v)) sert[(mmh/2/MMT)^2] }
+	Value            -> -Sqrt[4*Pi*aS]^2/(4*Pi(3*Pi*v)) sert[(mmh/2/MMT)^2] }
 
 }
 
