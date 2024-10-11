@@ -1,5 +1,5 @@
 import os
-from Modulos.menu import menu
+from menu import menu
 from datetime import datetime
 from shutil import move
 
@@ -13,6 +13,7 @@ def get_dir():
 # Seleccionar un directorio
 def select_dir(Search_Dir, Info):
     Dirs = os.listdir(Search_Dir)
+    Dirs.sort()
     Num_Dir_Selected = menu(Dirs, Info)
     Dir_Selected = Dirs[Num_Dir_Selected]
     return Dir_Selected
