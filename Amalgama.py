@@ -10,8 +10,8 @@ Created on Tue May 28 13:30:25 2024
 import os
 import shutil
 
-from Routines.feynrules_routine import feynrules_routine
-from Routines.micromegas_routine import main_micromegas
+from Modulos.feynrules_routine import feynrules_routine
+from Modulos.micromegas_routine import main_micromegas
 from Modulos.menu import clear_screen
 from Modulos.menu import menu
 from Modulos.files import get_dir
