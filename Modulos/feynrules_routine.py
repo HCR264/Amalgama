@@ -1,8 +1,8 @@
 import os
 import shutil
 from datetime import datetime
-from menu import clear_screen
-from menu import multi_select_menu
+from .menu import clear_screen
+from .menu import multi_select_menu
 
 
 def extract_lagrangians(model_path):

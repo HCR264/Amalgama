@@ -2,13 +2,13 @@ import os
 from shutil import copy
 
 
-from menu import clear_screen
+from .menu import clear_screen
 # from Modulos.menu import multi_select_menu
-from files import select_dir
-from files import select_dir_wth_keyword
-from files import find_files_wth_ext
-from files import code_name
-from menu import multi_select_menu
+from .files import select_dir
+from .files import select_dir_wth_keyword
+from .files import find_files_wth_ext
+from .files import code_name
+from .menu import multi_select_menu
 
 
 # def micromegas_files_check(search_path):
