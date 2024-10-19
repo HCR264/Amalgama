@@ -2,18 +2,18 @@ import os
 from shutil import copy
 
 
-from .menu import clear_screen
+from menu import clear_screen
 # from Modulos.menu import multi_select_menu
-from .files import select_dir
-from .files import select_dir_wth_keyword
-from .files import find_files_wth_ext
-from .files import code_name
-from .menu import multi_select_menu
+from files import select_dir
+from files import select_dir_wth_keyword
+from files import find_files_wth_ext
+from files import code_name
+from menu import multi_select_menu
 
 
 # def micromegas_files_check(search_path):
 #     number_ch_files = len(find_files_wth_ext(search_path, '.mdl'))
-def create_micromegas_project(dir, sesion_dir, files):
+def create_micromegas_project(global_dir, dir, sesion_dir, files):
     clear_screen()
     print('Creando Proyecto...\n')
     project_name = code_name('MO')
@@ -24,6 +24,8 @@ def create_micromegas_project(dir, sesion_dir, files):
     for file in files:
         file_dir = sesion_dir + '/' + file
         copy(file_dir, models_dir)
+
+    copy(global_dir + '/Modulos/main.c', project_dir)
 
     input(f'\n\nSe ha creado correctamente el projecto {project_name}')
     return project_dir
@@ -44,25 +46,17 @@ def extract_functions(dir_file):
     return functions_in_file
 
 
-def set_functions(dir_file, all_functions, selected_functions):
-    with open(dir_file, 'r') as file:
-        lines = file.readlines()
-
-    with open(dir_file, 'w') as file:
-        for i, line in enumerate(lines):
-            if '#define' in line:
-                for function in all_functions:
-                    if function in line and function in selected_functions:
-                        file.write('#define ' + function + '\n')
-                        continue
-                    else:
-                        file.write('//#define ' + function + '\n')
-                        continue
-            else: 
-                file.write(lines[i])
-                continue
-
-
+def set_functions(dir_file, selected_functions):
+    
+    for function in selected_functions:
+        with open(dir_file, 'r') as file:
+            lines = file.readlines()
+        with open(dir_file, 'w') as file:
+            for line in lines:
+                if "#define" in line and function in line:
+                    file.write("#define " + function + "\n")
+                else: 
+                    file.write(line)
 
 def main_micromegas(Global_Dir):
     Sesions_Dir = Global_Dir + '/Sesiones'
@@ -81,7 +75,7 @@ def main_micromegas(Global_Dir):
             exit
             pass
         else:
-            Project_Dir = create_micromegas_project(Micromegas_Dir, CH_Dir, mdl_files)
+            Project_Dir = create_micromegas_project(Global_Dir, Micromegas_Dir, CH_Dir, mdl_files)
     os.system(f'cd {Project_Dir} && make main=main.c')
     clear_screen()
 
@@ -91,10 +85,10 @@ def main_micromegas(Global_Dir):
     selected_functions = multi_select_menu(functions, menu_info)
     input(selected_functions)
     clear_screen()
-    set_functions(Project_Dir + '/main.c', functions, selected_functions)
+    set_functions(Project_Dir + '/main.c', selected_functions)
     input('main creado')
 
     os.system(f'cd {Project_Dir} && ./main data.par')
 
 if __name__ == "__main__": 
-    main_micromegas("/home/harold/Documentos/GitHub/Amalgama")
+    main_micromegas("/home/harold/Documents/GitHub/Amalgama")

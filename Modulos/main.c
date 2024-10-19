@@ -11,8 +11,8 @@
 //#define HIGGSSIGNALS
 //#define LILITH
 //#define SMODELS 
-//#define OMEGA       /*  Calculate Freeze out relic density and display contribution of  individual channels */
-//#define FREEZEIN  /*  Calculate relic density in Freeze-in scenario  */
+//#define OMEGA
+//#define FREEZEIN
 //#define INDIRECT_DETECTION  
 //#define RESET_FORMFACTORS
 //#define CDM_NUCLEON     

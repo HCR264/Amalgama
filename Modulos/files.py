@@ -1,5 +1,5 @@
 import os
-from .menu import menu
+from menu import menu
 from datetime import datetime
 from shutil import move
 
