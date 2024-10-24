@@ -167,12 +167,12 @@ def main_micromegas(Global_Dir):
     os.system(f'cd {Project_Dir} && make main=main.c')
     clear_screen()
 
-    # Detectar Particulas Extrañas
-    # Esto será desde el archivo prtcls.mdl
-    odd_name, odd_mass, odd_par = get_PInfo(Project_Dir + "/work/models/prtcls1.mdl")
-    part_list = ''
-    for i, name in enumerate(odd_name):
-       part_list = part_list + odd_name[i] + '\t| ' + odd_mass[i] + '\n'
+#    # Detectar Particulas Extrañas
+#    # Esto será desde el archivo prtcls.mdl
+#    odd_name, odd_mass, odd_par = get_PInfo(Project_Dir + "/work/models/prtcls1.mdl")
+#    part_list = ''
+#    for i, name in enumerate(odd_name):
+#       part_list = part_list + odd_name[i] + '\t| ' + odd_mass[i] + '\n'
     
     #Detectar Parametros
     var_name, var_val, var_comment, var_opt = get_VInfo(Project_Dir + "/work/models/vars1.mdl")
@@ -194,10 +194,10 @@ def main_micromegas(Global_Dir):
         var_list = var_list + var_name[i] + '\t| ' + var_comment[i] + '\n'
 
 
-#    parameters_list = var_list
-    parameters_list = part_list + var_list
-#    parameters_name = list(set(var_name))
-    parameters_name = list(set(odd_par + var_name))
+    parameters_list = var_list
+#    parameters_list = part_list + var_list
+    parameters_name = list(set(var_name))
+#    parameters_name = list(set(odd_par + var_name))
     # 
     head = '--EDICIÓN DE PARAMETROS--\n\n'
     info = f'Se han seleccionado las siguientes variables:\n\nName \t| Variable\n'# {ood_name} como candidatos de DM. ¿Qué masa desea establecer para ellas?'
@@ -248,7 +248,7 @@ def main_micromegas(Global_Dir):
     t_inicio = time.time()
     for j in range(1, timesDat+1):
         with open(Project_Dir+'/tempOut.txt', 'a') as tempfile:
-            run_main = f'cd {Project_Dir} && ./main Parameters/data{i}.par'
+            run_main = f'cd {Project_Dir} && ./main Parameters/data{j}.par'
             tempfile.write(subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout)
     t_final = time.time()
     input('completado')
