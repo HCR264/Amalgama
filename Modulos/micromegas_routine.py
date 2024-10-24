@@ -120,7 +120,7 @@ def get_values(list):
 def create_data_files(variables, values, dir):
     with open(dir, 'w') as file:
         for i, var in enumerate(variables):
-            file.write(f'{variables[i]}\t|{values[i]}\n')
+            file.write(f'{variables[i]} {values[i]}\n')
 
 
 def getDataVal(variables,RMode, min, max):
@@ -172,7 +172,7 @@ def main_micromegas(Global_Dir):
     odd_name, odd_mass, odd_par = get_PInfo(Project_Dir + "/work/models/prtcls1.mdl")
     part_list = ''
     for i, name in enumerate(odd_name):
-        part_list = part_list + odd_name[i] + '\t| ' + odd_mass[i] + '\n'
+       part_list = part_list + odd_name[i] + '\t| ' + odd_mass[i] + '\n'
     
     #Detectar Parametros
     var_name, var_val, var_comment, var_opt = get_VInfo(Project_Dir + "/work/models/vars1.mdl")
@@ -185,19 +185,22 @@ def main_micromegas(Global_Dir):
     for val in selected_var:
         temp_val = []
         temp_val = re.split(r"[|]", val)
-        temp_val[0] = temp_val[0].split()
         var_name.append(temp_val[0])
         var_comment.append(temp_val[1])
     var_list = ''
+    var_name = [elemento.strip() for elemento in var_name]
+    var_comment = [elemento.strip() for elemento in var_comment]
     for i, name in enumerate(var_name):
-        var_list = var_list + var_comment[i] + '\t| ' + var_name[i] + '\n'
+        var_list = var_list + var_name[i] + '\t| ' + var_comment[i] + '\n'
 
 
+#    parameters_list = var_list
     parameters_list = part_list + var_list
+#    parameters_name = list(set(var_name))
     parameters_name = list(set(odd_par + var_name))
     # 
     head = '--EDICIÓN DE PARAMETROS--\n\n'
-    info = f'Se han detectado los siguientes candidatos de DM y se han seleccionado las siguientes variables:\n\nName \t| Variable\n'# {ood_name} como candidatos de DM. ¿Qué masa desea establecer para ellas?'
+    info = f'Se han seleccionado las siguientes variables:\n\nName \t| Variable\n'# {ood_name} como candidatos de DM. ¿Qué masa desea establecer para ellas?'
     quest = '\n¿Qué desea hacer?'
     menu_info = head + info + parameters_list + quest
     optionsPar = ['Dejar los valores ya establecidos en el modelo', 'Ingresar valor(es) de forma manual', 'Usar valor(es) aleatorio(s) con una única salida', 'Hacer un barrido aleatorio para cada valor']
@@ -240,10 +243,16 @@ def main_micromegas(Global_Dir):
             parameters_values = getDataVal(parameters_name,True, rMin, rMax)
             create_data_files(parameters_name, parameters_values, f'{Par_Dir}/data{i}.par')
         
-    # Ejecutar ./main data.par
+    # Ejecutar ./main data.par y guardar los datos
     clear_screen()
-    os.system(f'cd {Project_Dir} && ./main data.par')
-    input()
+    t_inicio = time.time()
+    for j in range(1, timesDat+1):
+        with open(Project_Dir+'/tempOut.txt', 'a') as tempfile:
+            run_main = f'cd {Project_Dir} && ./main Parameters/data{i}.par'
+            tempfile.write(subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout)
+    t_final = time.time()
+    input('completado')
+    input(t_final-t_inicio)
 
 if __name__ == "__main__":
     main_micromegas("/home/harold/Documentos/GitHub/Amalgama")
