@@ -69,6 +69,32 @@ def get_PInfo(dir_files):
     oddPrtclsP = list(set(oddPrtclsM))
     return oddPrtclsN, oddPrtclsM, oddPrtclsP
 
+def get_VInfo(dir_file):
+    name = []
+    value = []
+    comment = []
+    options = []
+
+    with open(dir_file, 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        option = ''
+        V_Elements = []
+        if "|" in line:
+            if "|>" in line:
+                pass
+            else:
+                V_Elements = re.split(r"[|]", line)
+                for i, ele in enumerate(V_Elements):
+                    V_Elements[i] = V_Elements[i].strip()
+                option = V_Elements[0] + ' | ' + V_Elements[2]
+                options.append(option)
+                name.append(V_Elements[0])
+                value.append(V_Elements[1])
+                comment.append(V_Elements[2])
+    return name, value, comment, options
+
 
 def set_functions(dir_file, selected_functions):
     for function in selected_functions:
@@ -147,15 +173,36 @@ def main_micromegas(Global_Dir):
     part_list = ''
     for i, name in enumerate(odd_name):
         part_list = part_list + odd_name[i] + '\t| ' + odd_mass[i] + '\n'
-    #input(oddPrtcls)
+    
+    #Detectar Parametros
+    var_name, var_val, var_comment, var_opt = get_VInfo(Project_Dir + "/work/models/vars1.mdl")
+    
+    #Seleccionar Parametros
+    menu_info = '¿Qué parametros desea variar?'
+    selected_var = multi_select_menu(var_opt, menu_info)
+    var_name = []
+    var_comment = []
+    for val in selected_var:
+        temp_val = []
+        temp_val = re.split(r"[|]", val)
+        temp_val[0] = temp_val[0].split()
+        var_name.append(temp_val[0])
+        var_comment.append(temp_val[1])
+    var_list = ''
+    for i, name in enumerate(var_name):
+        var_list = var_list + var_comment[i] + '\t| ' + var_name[i] + '\n'
 
+
+    parameters_list = part_list + var_list
+    parameters_name = list(set(odd_par + var_name))
     # 
     head = '--EDICIÓN DE PARAMETROS--\n\n'
-    info = f'Se han detectado los siguientes candidatos de DM:\n\nName \t| Variable\n'# {ood_name} como candidatos de DM. ¿Qué masa desea establecer para ellas?'
+    info = f'Se han detectado los siguientes candidatos de DM y se han seleccionado las siguientes variables:\n\nName \t| Variable\n'# {ood_name} como candidatos de DM. ¿Qué masa desea establecer para ellas?'
     quest = '\n¿Qué desea hacer?'
-    menu_info = head + info + part_list + quest
+    menu_info = head + info + parameters_list + quest
     optionsPar = ['Dejar los valores ya establecidos en el modelo', 'Ingresar valor(es) de forma manual', 'Usar valor(es) aleatorio(s) con una única salida', 'Hacer un barrido aleatorio para cada valor']
-    randomPar = menu(optionsPar, menu_info)
+
+    randomPar =  menu(optionsPar, menu_info)
 
     Par_Dir = Project_Dir + '/Parameters'
     os.system(f'mkdir {Par_Dir}')
@@ -164,25 +211,25 @@ def main_micromegas(Global_Dir):
     if randomPar == 0: ## No cambiar el archivo data.par
         create_data_files([],[],Par_Dir+'/data1.par')
     elif randomPar == 1: ## Ingresa 1 de manera manual los parametros
-        odd_val = getDataVal(odd_par, False, 0, 0)
-        create_data_files(odd_par, odd_val, Par_Dir+'/data1.par')
+        parameters_values = getDataVal(parameters_name, False, 0, 0)
+        create_data_files(parameters_name, parameters_values, Par_Dir+'/data1.par')
     elif randomPar == 2:
         rMin = []
         rMax = []
-        for oddpar in odd_par:
-            getRango = input(f'Entre que rango puede estar {oddpar} (rmin,rmax): ')
+        for name in parameters_name:
+            getRango = input(f'Entre que rango puede estar {name} (rmin,rmax): ')
             rmin, rmax = getRango.split(',')
             rmin = float(rmin)
             rmax = float(rmax)
             rMin.append(rmin)
             rMax.append(rmax)
-        odd_val = getDataVal(odd_par,True, rMin, rMax)
-        create_data_files(odd_par,odd_val, Par_Dir+'/data1.par')
+        parameters_values = getDataVal(parameters_name,True, rMin, rMax)
+        create_data_files(parameters_name,parameters_values, Par_Dir+'/data1.par')
     else:
         rMin = []
         rMax = []
-        for oddpar in odd_par:
-            getRango = input(f'Entre que rango puede estar {oddpar} (rmin,rmax): ')
+        for name in parameters_name:
+            getRango = input(f'Entre que rango puede estar {name} (rmin,rmax): ')
             rmin, rmax = getRango.split(',')
             rmin = float(rmin)
             rmax = float(rmax)
@@ -190,8 +237,8 @@ def main_micromegas(Global_Dir):
             rMax.append(rmax)
         timesDat = int(input('Ingrese tamaño del barrido: ')) 
         for i in range(1, timesDat+1):
-            odd_val = getDataVal(odd_par,True, rMin, rMax)
-            create_data_files(odd_par,odd_val, f'{Par_Dir}/data{i}.par')
+            parameters_values = getDataVal(parameters_name,True, rMin, rMax)
+            create_data_files(parameters_name, parameters_values, f'{Par_Dir}/data{i}.par')
         
     # Ejecutar ./main data.par
     clear_screen()

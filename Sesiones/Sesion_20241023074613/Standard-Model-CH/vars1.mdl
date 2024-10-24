@@ -1,0 +1,37 @@
+Standard Model
+ Parameters
+  Name         | Value       |> Comment                                                                <|
+lS             |0.5          |lS                                                                        |
+om             |0.5          |om                                                                        |
+aEWM1          |127.9        |Inverse of the electroweak coupling constant                              |
+Gf             |0.0000116637 |Fermi constant                                                            |
+aS             |0.1184       |Strong coupling constant at the Z pole.                                   |
+ymdo           |0.00504      |Down Yukawa mass                                                          |
+ymup           |0.00254999999|Up Yukawa mass                                                            |
+yms            |0.101        |Strange Yukawa mass                                                       |
+ymc            |1.27         |Charm Yukawa mass                                                         |
+ymb            |4.7          |Bottom Yukawa mass                                                        |
+ymt            |172.         |Top Yukawa mass                                                           |
+yme            |0.00051100000|Electron Yukawa mass                                                      |
+ymm            |0.10566      |Muon Yukawa mass                                                          |
+ymtau          |1.777        |Tau Yukawa mass                                                           |
+cabi           |0.227736     |Cabibbo angle                                                             |
+GG             |1.21977796370|Strong coupling constant   This value will be ignored and calculated from |
+MSk            |40           |Mass of ~S4.                                                              |
+Me             |0.00051100000|Mass of e.                                                                |
+MM             |0.10566      |Mass of m.                                                                |
+MTA            |1.777        |Mass of tt.                                                               |
+MU             |0.00254999999|Mass of u.                                                                |
+MC             |1.42         |Mass of c.                                                                |
+MT             |172          |Mass of t.                                                                |
+MD             |0.00504      |Mass of d.                                                                |
+MS             |0.101        |Mass of s.                                                                |
+MB             |4.7          |Mass of b.                                                                |
+MZ             |91.1876      |Mass of phi.                                                              |
+MH             |120          |Mass of H.                                                                |
+%WT            |1.50833649   |Width of t.                                                               |
+%WZ            |2.4952       |Width of Z.                                                               |
+%WW            |2.085        |Width of W.                                                               |
+%WH            |0.00575308848|Width of H.                                                               |
+E              |2.71828182845|The base of the natural logarithm.                                        |
+Pi             |3.14159265358|The circumference of a circle divided by the diameter.                    |
