@@ -1,0 +1,34 @@
+M$ModelName = "Scalar_Dark_Model"
+
+M$Information = {
+    Authors     -> {"Harold Cruz Ramirez"},
+    Version     -> "1.0",
+    Date        -> "06. 11. 2024";
+}
+
+M$Parameters = {
+    lambS == {
+        ParameterName       -> lS,
+	    BlockName           -> INVSCALAR,
+        Value               -> 0.5,
+        InteractionOrder    -> {QED, 2}
+    }
+}
+
+M$ClassesDescription = {
+    S[4] == {
+        ClassName           -> Sdm,
+        SelfConjugate       -> True,
+        Mass                -> {MSdm, 70},
+        ParticleName        -> "~Sdm",
+        Widt                -> 0
+    }
+}
+
+(* Lagrangiano DM *)
+
+LDM := 1/2 del[Sdm, mu] del[Sdm, mu] - 1/2 MSdm^2 Sdm^2 - 1/2 lambS vev^2 Sdm^2 (H/vev + 1/2 H*H/(vev*vev))
+
+(***Lagrangians***)
+(*LDM*)
+(***End***)

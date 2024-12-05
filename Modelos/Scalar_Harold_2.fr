@@ -1,0 +1,41 @@
+Nf = 4;
+
+M$ModelName = "SM_Scalars_Harold";
+
+IndexRange[ Index[SGend] ] = Range[Nf]
+
+IndexStyle[SGen, k]
+
+M$Parameters = {
+    \[Lambda]S == {
+        InteractionOrder    -> {QED,2},
+        ParameterName       -> lS,
+        Value               -> 0.5,
+        BlockName           -> INVSCALAR
+    },
+
+    \[Omega] == {
+        InteractionOrder    -> {QED, 2},
+        ParameterName       -> om,
+        BlockName           -> INVSCALAR
+    }
+}
+
+M$ClassesDescription = {
+    S[4] == {
+        ClassName           -> Sk,
+        ClassMmbers         -> Table["~S" <> ToString[k], {k, Nf}],
+        SelfConjugate       -> True,
+        Indices             -> {Index[SGen]},
+        FlavorIndex         -> SGen,
+        Mass                -> {MSk, 40},
+        Width               -> 0
+    }
+}
+
+
+LScalar := 1/2 del[Sk[k], mu]^2 - 1/2 MSk^2 Sk[k]^2 - \[Lambda]S/(8 Nf) Sk[k1]^2 Sk[k2]^2 - \[Omega]/(4 Sqrt[Nf]) Sk[k]^2 HC[Phi].Phi;
+
+(***Lagrangians***)
+(*LScalar*)
+(***End***)

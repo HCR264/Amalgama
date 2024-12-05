@@ -3,7 +3,7 @@ import subprocess
 import time
 from shutil import copy
 import re
-import random
+from numpy import random
 
 from .menu import clear_screen
 # from Modulos.menu import multi_select_menu
@@ -134,6 +134,27 @@ def getDataVal(variables,RMode, min, max):
             values.append(random.uniform(min[i],max[i]))
     return values
 
+def getPlotData(resultsDir, dataDir, parDir, varNames):
+    with open(resultsDir, 'r') as origen, open(dataDir, 'w') as destino:
+        destino.write(' '.join(varNames) + ' omega\n')
+        i = 1
+        for line in origen:
+            data = []
+            if 'Omega' in line:
+                #data1 = re.(r"[ =]".line)
+                with open(f'{parDir}/data{i}.par', 'r') as parameters:
+                    for parline in parameters:
+                        tempDat = re.split(r"[ \n]", parline)
+                        data.append(tempDat[1])
+                tempDat = re.split(r"[ =\n]", line)
+                data.append(tempDat[3])
+                dataline = ' '.join(data)
+                destino.write(dataline+'\n')
+                i=i+1
+            else: continue
+
+
+
 
 def main_micromegas(Global_Dir):
     Sesions_Dir = Global_Dir + '/Sesiones'
@@ -160,11 +181,11 @@ def main_micromegas(Global_Dir):
     menu_info = '¿Qué funciones desea realizar en micrOMEGAS?'
     selected_functions = multi_select_menu(functions, menu_info)
     set_functions(Project_Dir + '/main.c', selected_functions)
-    print('\n-> main.c creado')
-    time.sleep(3)
     clear_screen()
     
     os.system(f'cd {Project_Dir} && make main=main.c')
+    print('\n-> main.c creado')
+    time.sleep(3)
     clear_screen()
 
 #    # Detectar Particulas Extrañas
@@ -246,13 +267,22 @@ def main_micromegas(Global_Dir):
     # Ejecutar ./main data.par y guardar los datos
     clear_screen()
     t_inicio = time.time()
+    tempFileDir = Project_Dir+'/tempOut.txt'
     for j in range(1, timesDat+1):
-        with open(Project_Dir+'/tempOut.txt', 'a') as tempfile:
+        with open(tempFileDir, 'a') as tempfile:
             run_main = f'cd {Project_Dir} && ./main Parameters/data{j}.par'
             tempfile.write(subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout)
+        clear_screen()
+        porcentaje = (j/(timesDat))*100
+        print(f"En progreso... {porcentaje}%")
     t_final = time.time()
     input('completado')
     input(t_final-t_inicio)
+
+    #Extraer datos
+    clear_screen()
+    plotData = Project_Dir + '/dataPlot.txt'
+    getPlotData(Project_Dir+'/tempOut.txt', plotData, Par_Dir, var_name)
 
 if __name__ == "__main__":
     main_micromegas("/home/harold/Documentos/GitHub/Amalgama")

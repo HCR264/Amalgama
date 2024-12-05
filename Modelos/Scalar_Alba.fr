@@ -1,0 +1,56 @@
+M$ModelName="ScalarDM";
+
+M$Information={
+Authors -> {"Alba Carrillo"},
+Version-> "1.0",
+Date->"November.16.2021",
+Institution->{"BUAP"},
+Emails->{" "}
+};
+
+M$ClassesDescription={
+ 
+(*DM *)
+
+
+S[9]=={
+	ClassName -> Sx,
+	SelfConjugate -> True, 
+	Mass -> {mSx, 250}, 
+        Width -> {wSx,Internal},
+	PDG   -> 1003,
+	PropagatorLabel -> {"Sx"},
+	PropagatorType -> ScalarDash,
+        ParticleName -> {"~Sx"},
+        FullName -> {"scalar DM"}
+ } 
+
+}
+
+M$Parameters = {
+
+(*Naming Convention*)
+ 
+
+ (* External parameters *)
+
+lambda == {
+Value -> 1,
+InteractionOrder -> {QED, 2},
+Description -> "DM scalar couplings"}
+
+}
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+ Lax= 1/2 del[Sx, mu].del[Sx, mu] - 1/2 mSx^2 Sx^2 - 1/2 lambda vev^2 Sx^2 ( H/vev + 1/2 H*H/(vev*vev));
+
+(***Lagrangians***)
+(*Lax*)
+(***End***)
+
+
+
+
