@@ -11,7 +11,7 @@ import os
 import shutil
 
 from Modulos.feynrules_routine import feynrules_routine
-from Modulos.micromegas_routine import main_micromegas
+from Modulos.micromegas_routine_v2 import main_micromegas
 from Modulos.menu import clear_screen
 from Modulos.menu import menu
 from Modulos.files import get_dir

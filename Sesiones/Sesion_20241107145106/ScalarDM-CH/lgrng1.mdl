@@ -1,6 +1,0 @@
-ScalarDM
- Vertices
-A1           |A2           |A3           |A4           |>         Factor              <|> <|
-H            |H            |~Sx          |~Sx          |x1x0                           |1
-~Sx          |~Sx          |~Sx          |~Sx          |x2x0                           |1
-H            |~Sx          |~Sx          |             |x3x0                           |1

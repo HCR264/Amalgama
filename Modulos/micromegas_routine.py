@@ -49,6 +49,7 @@ def extract_functions(dir_file):
     functions_in_file.remove('SHOWPLOTS*/')
     functions_in_file.remove('CLEAN')
     functions_in_file.remove('d(HIGGSBOUNDS)')
+    input(functions_in_file)
     return functions_in_file
 
 def get_PInfo(dir_files):
