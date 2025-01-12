@@ -1,4 +1,7 @@
 import os
+import re
+import subprocess
+from multiprocessing import Pool, cpu_count, Manager
 from shutil import copy
 
 from .menu import clear_screen
@@ -41,3 +44,45 @@ def set_funct(dir, functions):
                     file.write(f'#define {function}\n')
                 else:
                     file.write(line)
+
+
+def vars_Info(varFile):
+    names = []
+    values = []
+    comments = []
+    options = []
+    with open(varFile, 'r') as file:
+        lines = file.readlines()
+
+    for line in lines:
+        option = ''
+        elements = []
+        if '|' in line:
+            if '|>' in line:
+                pass
+            else:
+                elements = re.split(r'[|]', line)
+                elements = [element.strip() for element in elements]
+                if len(elements) > 2:
+                    elements[2] = ' '.join(elements[2].split())
+                options.append(f'{elements[0]} | {elements[2]}')
+                names.append(elements[0])
+                values.append(elements[1])
+                comments.append(elements[2] if len(elements) > 2 else '')
+    return names, values, comments, options
+
+
+def getOmega(data):
+    omega = data.split('Omega=')[1].split('\n')[0].strip()
+    return omega
+    
+
+def parNone(dir, name, value):
+    run_main = f'cd {dir} && ./main data.par'
+    resultFile = f'{dir}/Results/results.txt'
+    input(f'{run_main}, {resultFile}')
+    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
+    omega = getOmega(resultData)
+    input(omega)
+    #with open(resultFile, 'a') as file:
+

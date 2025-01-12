@@ -9,7 +9,7 @@ from numpy import random
 #Funciones propias
 from .menu import clear_screen, multi_select_menu, menu
 from .files import select_dir, select_dir_wth_keyword, find_files_wth_ext
-from .mO_f import create_project, get_funct, set_funct
+from .mO_f import create_project, get_funct, set_funct, vars_Info, parNone
 
 #Posible libreria para paralelizar
 #import concurrent.futures
@@ -22,6 +22,11 @@ info_sesion_dir_2 = '\nNo se encontraron los archivos necesarios para ejecutar m
 menu_info_2 = 'Seleccione las funciones que desea que micrOMEGAS realice.'
 
 info_make = '\n\n\nNo se ha podido crear el programa "main.c"'
+
+info_var = 'Seleccione los parametros con los que desea trabajar.'
+
+info_random_1 = '--EDICIÓN DE PARAMETROS--\n\nSe han seleccionado las siguientes variables:\n\n\t'
+info_random_2 = ['Dejar los valores establecidos en el modelo.', 'Ingresar un valor para cada parámetro.', 'Usar un valor aleatorio para cada parámetro.', 'Usar valores aleatorios en un rago para cada parámetro.']
 
 def main_micromegas(Global_Dir):
 #Definir Directorios principales
@@ -49,12 +54,34 @@ def main_micromegas(Global_Dir):
     clear_screen()
 
 
-#Ejecutar make
+#Ejecutar make 
     os.system(f'cd {Project_Dir} && make main=main.c')
-#    clear_screen()
-    input(Project_Dir)
+    clear_screen()
     if not os.path.exists(f'{Project_Dir}/main'):
         input(info_make)
         return
 
-    
+#Obtener la información del archivo vars.mdl
+    varName, varVal, varCom, varOpt = vars_Info(f'{Project_Dir}/work/models/vars1.mdl')
+
+
+
+#Elejir que variables se van a cambiar
+    varSelect = multi_select_menu(varOpt, info_var)
+    delIndex = [i for i, element in enumerate(varOpt) if element not in varSelect]
+    for index in sorted(delIndex, reverse=True):
+        varName.pop(index)
+        varVal.pop(index)
+        varCom.pop(index)
+        varOpt.pop(index)
+
+
+#Elejir el tipo de edición de parametros
+    randomOpt = menu(info_random_2, f'{info_random_1}'+'\n\t'.join(varOpt))
+
+
+#Escritura de parámetros
+    Results_Dir = f'{Project_Dir}/Results'
+    os.system(f'mkdir {Results_Dir}')
+    if randomOpt==0:
+        parNone(Project_Dir, varName, varVal)
