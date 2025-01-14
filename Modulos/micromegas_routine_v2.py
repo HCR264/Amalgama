@@ -5,11 +5,12 @@ import time
 from shutil import copy
 import re
 from numpy import random
+from tabulate import tabulate
 
 #Funciones propias
 from .menu import clear_screen, multi_select_menu, menu
 from .files import select_dir, select_dir_wth_keyword, find_files_wth_ext
-from .mO_f import create_project, get_funct, set_funct, vars_Info, parNone
+from .mO_f import create_project, get_funct, set_funct, vars_Info, parNone, parManual, parRand
 
 #Posible libreria para paralelizar
 #import concurrent.futures
@@ -27,6 +28,10 @@ info_var = 'Seleccione los parametros con los que desea trabajar.'
 
 info_random_1 = '--EDICIÓN DE PARAMETROS--\n\nSe han seleccionado las siguientes variables:\n\n\t'
 info_random_2 = ['Dejar los valores establecidos en el modelo.', 'Ingresar un valor para cada parámetro.', 'Usar un valor aleatorio para cada parámetro.', 'Usar valores aleatorios en un rago para cada parámetro.']
+info_random_3 = 'Ingrese los nuevos valores.\n'
+info_random_4 = '\nIngrese el rango de los valores\nEjemplo.\n\t> parameterName: min_val, max_val'
+
+error_random_1= '\nError. Ingrese datos válidos.'
 
 def main_micromegas(Global_Dir):
 #Definir Directorios principales
@@ -82,6 +87,36 @@ def main_micromegas(Global_Dir):
 
 #Escritura de parámetros
     Results_Dir = f'{Project_Dir}/Results'
+    resultFile = f'{Results_Dir}/results.txt'
+    header = list(varName) + ['omega']
     os.system(f'mkdir {Results_Dir}')
+    #Caso 1: Dejar los datos igual
     if randomOpt==0:
-        parNone(Project_Dir, varName, varVal)
+        data = parNone(Project_Dir, varName, varVal)
+        with open(f'{resultFile}', 'a') as file:
+            file.write(tabulate(data,headers=header, tablefmt='plain'))
+    #Caso 2: Editar los datos manualmente
+    if randomOpt==1:
+        print(info_random_3)
+        varVal = []
+        for name in varName:
+            varVal.append(float(input(f'> {name}: ')))
+        data = parManual(Project_Dir, varName, varVal)
+        with open(f'{resultFile}', 'a') as file:
+            file.write(tabulate(data, headers=header, tablefmt='plain'))
+    #Caso 3: Editar aleatoriamente una vez
+    if randomOpt==2:
+        varRange = []
+        print(info_random_4)
+        for name in varName:
+            while True:
+                try:
+                    rmin, rmax = map(float, input(f'\t> {name}: ').split(','))
+                    varRange.append([rmin, rmax])
+                    break
+                except ValueError:
+                    print(error_random_1)
+        data = parRand(Project_Dir, varName, varRange)
+        input(data)
+
+

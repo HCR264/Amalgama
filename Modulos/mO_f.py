@@ -3,9 +3,13 @@ import re
 import subprocess
 from multiprocessing import Pool, cpu_count, Manager
 from shutil import copy
+from tabulate import tabulate
+from numpy import random
+
 
 from .menu import clear_screen
 from .files import code_name
+
 
 def create_project(global_dir, dir, sesion_dir, files):
     clear_screen()
@@ -75,14 +79,43 @@ def vars_Info(varFile):
 def getOmega(data):
     omega = data.split('Omega=')[1].split('\n')[0].strip()
     return omega
+
+
+#def resultFile(dir, name, value, result):
     
 
 def parNone(dir, name, value):
     run_main = f'cd {dir} && ./main data.par'
-    resultFile = f'{dir}/Results/results.txt'
-    input(f'{run_main}, {resultFile}')
     resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
-    omega = getOmega(resultData)
-    input(omega)
-    #with open(resultFile, 'a') as file:
+    value.append(float(getOmega(resultData)))
+    return [value]
+
+def parManual(dir, name, value):
+    temp_name = f'temp_{os.getpid()}.par'
+    temp_data = f'{dir}/{temp_name}'
+    with open(temp_data, 'a') as file:
+        for i, val in enumerate(value):
+            file.writelines(f'{name[i]} {val}\n')
+    run_main = f'cd {dir} && ./main {temp_name}'
+    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
+    value.append(float(getOmega(resultData)))
+    os.remove(temp_data)
+    return [value]
+
+
+def parRand(dir, names, valRange): 
+    value = []
+    temp_name = f'temp_{os.getpid()}.par'
+    temp_data = f'{dir}/{temp_name}'
+    with open(temp_data, 'a') as file:
+        for i, name in enumerate(names):
+            value.append(random.uniform(valRange[i][0],valRange[i][1]))
+            file.writelines(f'{name} {value[i]}\n')
+    run_main = f'cd {dir} && ./main {temp_name}'
+    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
+    input(f'La salida es:\n{resultData}')
+    value.append(float(getOmega(resultData)))
+    input()
+    os.remove(temp_data)
+    return value
 
