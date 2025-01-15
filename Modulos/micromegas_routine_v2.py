@@ -6,6 +6,7 @@ from shutil import copy
 import re
 from numpy import random
 from tabulate import tabulate
+from multiprocessing import cpu_count
 
 #Funciones propias
 from .menu import clear_screen, multi_select_menu, menu
@@ -117,6 +118,9 @@ def main_micromegas(Global_Dir):
                 except ValueError:
                     print(error_random_1)
         data = parRand(Project_Dir, varName, varRange)
-        input(data)
-
-
+        with open(f'{resultFile}', 'a') as file:
+            file.write(tabulate(data, headers=header, tablefmt='plain'))
+    #Caso 4: Hacer un barrido de parámetros aleatorios
+    if randomOpt==3:
+        num_cpus = max(cpu_count(),1)
+        input(num_cpus)

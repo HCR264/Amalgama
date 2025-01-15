@@ -115,7 +115,6 @@ def parRand(dir, names, valRange):
     resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
     input(f'La salida es:\n{resultData}')
     value.append(float(getOmega(resultData)))
-    input()
     os.remove(temp_data)
-    return value
+    return [value]
 
