@@ -1,0 +1,8 @@
+Scalar_Dark_Model
+ Constraints
+  Name         |> Expression                                                                                                 <|
+%*slhaFound    |1+access("vars1.lha", 0)                                                                                       %Check whether LHA file is present.
+%*rdSLHA       |if(slhaFound,slhaRead("vars1.lha", 0),-1)                                                                      %Read LHA file.
+%lS            |if(slhaFound,if(slhaValExists("INVSCALAR",1,1),slhaVal("INVSCALAR",0,1,1),lSDef),lSDef)                        %lS                                                
+%MSdm          |if(slhaFound,if(slhaValExists("MASS",1,9000001),slhaVal("MASS",0,1,9000001),MSdmDef),MSdmDef)                  %Mass of Sdm.                                      
+%WSdm          |if(slhaFound,if(1+slhaDecayExists(9000001),slhaWidth(9000001),WSdmDef),WSdmDef)                                %Width of Sdm.                                     

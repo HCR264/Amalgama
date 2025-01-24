@@ -80,8 +80,11 @@ def getOmega(data):
     omega = data.split('Omega=')[1].split('\n')[0].strip()
     return omega
 
-
-#def resultFile(dir, name, value, result):
+def seedsGen(size):
+    seeds = set()
+    while len(seeds) < size:
+        seeds.add(random.randint(0,2**32-1))
+    return list(seeds)
     
 
 def parNone(dir, name, value):
@@ -103,7 +106,7 @@ def parManual(dir, name, value):
     return [value]
 
 
-def parRand(dir, names, valRange): 
+def parRand(dir, names, valRange):
     value = []
     temp_name = f'temp_{os.getpid()}.par'
     temp_data = f'{dir}/{temp_name}'
@@ -113,8 +116,34 @@ def parRand(dir, names, valRange):
             file.writelines(f'{name} {value[i]}\n')
     run_main = f'cd {dir} && ./main {temp_name}'
     resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
-    input(f'La salida es:\n{resultData}')
     value.append(float(getOmega(resultData)))
     os.remove(temp_data)
     return [value]
+
+def parRand(dir, names, valRange, seed):
+    value = []
+    temp_name = f'temp_{os.getpid()}.par'  # Usar índice para nombres únicos
+    temp_data = f'{dir}/{temp_name}'
+    
+    random.seed(seed)
+
+    with open(temp_data, 'a') as file:
+        for i, name in enumerate(names):
+            value.append(random.uniform(valRange[i][0], valRange[i][1]))
+            file.writelines(f'{name} {value[i]}\n')
+    
+    run_main = f'cd {dir} && ./main {temp_name}'
+    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
+    value.append(float(getOmega(resultData)))
+    
+    os.remove(temp_data)
+    return value
+
+def parRandParallel(dir, names, valRange):
+    # Cada tarea paralelizada recibirá un índice único
+    results = []
+    for i in range(len(names)):  # Usamos la longitud de names para determinar el número de tareas
+        results.append(parRandSingle(dir, names, valRange, i))
+    return results
+
 

@@ -1,1 +1,1 @@
-#define micrO "/home/harold/Documentos/GitHub/Amalgama/micromegas_6.1.15"
+#define micrO "/home/harold/Documentos/Repositorios/Proyectos/Amalgama/micromegas_6.1.15"
