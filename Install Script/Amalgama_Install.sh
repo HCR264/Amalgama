@@ -147,9 +147,9 @@ for paquete in "${paquetes_libres[@]}"; do
 
     if is_installed "$paquete"; then
       printf "\033[2K\r%b %s está instalado.\n" "$MCheck" "$paquete"
-    else
-      printf "\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$paquete" "${CRE}" "${CNC}"
-      exit 1
+    #else
+    #  printf "\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s\n" "$MCross" "$paquete" "${CRE}" "${CNC}"
+    #  exit 1
     fi
   #else
   #  printf "%b %s está instalado.\n" "$MCheck" "$paquete"
