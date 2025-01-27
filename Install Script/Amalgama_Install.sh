@@ -89,15 +89,30 @@ sleep 2
 paquetes_privativos=(mathematica)
 
 if [ "$DISTRO" == "ubuntu" ]; then
-  paquetes_libres=(gcc gfortran git python3)
-  librerias=(python3-tqdm python3-tabulate python3-numpy)
+  paquetes_libres=(gcc gcc-fortran git python3 python3-tqdm python3-tabulate python3-numpy)
+#  librerias=(python3-tqdm python3-tabulate python3-numpy)
 else
-  paquetes_libres=(gcc gfortran git python)
-  librerias=(python-tqdm python-tabulate python-numpy)
+  paquetes_libres=(gcc gcc-fortran git python python-tqdm python-tabulate python-numpy)
+#  librerias=(python-tqdm python-tabulate python-numpy)
 fi
 
-is_installed() {
+is_MW_installed() {
   command -v "$1" &> /dev/null
+}
+
+# Verificar si las librerías de Python están instaladas
+is_installed() {
+    case "$DISTRO" in 
+        "ubuntu")
+            dpkg -l | grep -q "$1" &> /dev/null
+            ;;
+        "arch")
+            pacman -Qs "$1" &> /dev/null
+            ;;
+        "fedora")
+            dnf list installed "$1" &> /dev/null
+            ;;
+        esac
 }
 
 install() {
@@ -126,9 +141,9 @@ for paquete in "${paquetes_libres[@]}"; do
     install "$paquete"
 
     if is_installed "$paquete"; then
-      printf "\033[1A\033[2K\r%b %s está instalado.\n" "$MCheck" "$paquete"
+      printf "\033\033[2K\r%b %s está instalado.\n" "$MCheck" "$paquete"
     else
-      printf "\033[1A\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$paquete" "${CRE}" "${CNC}"
+      printf "\033\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$paquete" "${CRE}" "${CNC}"
       exit 1
     fi
   else
@@ -137,53 +152,38 @@ for paquete in "${paquetes_libres[@]}"; do
   sleep 1
 done
 
-# Verificar si las librerías de Python están instaladas
-is_library_installed() {
-    case "$DISTRO" in 
-        "ubuntu")
-            python3 -c "import $1" &> /dev/null
-            ;;
-        "arch")
-            python -c "import $1" &> /dev/null
-            ;;
-        "fedora")
-            python -c "import $1" &> /dev/null
-            ;;
-        esac
-}
-
-for libreria in "${librerias[@]}"; do
-    if is_library_installed "$libreria"; then
-        printf "%b %s no está instalado." "$MCross" "$libreria"
-        sleep 3
-
-        printf "\033[2K\r%b %s se está intentando instalar." "$MTime" "$libreria"
-        sleep 1
-        printf "\033[2K\r%b " "$MTime"
-        install "$libreria"
-
-        if is_library_installed "$libreria"; then
-            printf "\033[1A\033[2K\r%b %s está instalado.\n" "$MCheck" "$libreria"
-        else
-            printf "\033[1A\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$libreria" "${CRE}" "${CNC}"
-        exit 1
-        fi
-    else
-        printf "%b %s está instalado.\n" "$MCheck" "$paquete"
-    fi
-    sleep 1
-done
 
 
-for paquete in "${paquetes_privativos[@]}"; do
-  if is_installed "$paquete"; then
-    printf "%b %s está instalado.\n" "$MCheck" "$paquete"
-  else
-    printf "%b %s no está instalado. %s%sAquiera una licencia oficial.%s\n\n%sInstalación interrumpida.\n" "$MCross" "$paquete" "${CRE}" "${BLD}" "${CNC}" "${CRE}"
+#for libreria in "${librerias[@]}"; do
+#    if ! is_library_installed "$libreria" == 0; then
+#        printf "%b %s no está instalado." "$MCross" "$libreria"
+#        sleep 3
+#
+#        printf "\033[2K\r%b %s se está intentando instalar." "$MTime" "$libreria"
+#        sleep 1
+#        printf "\033[2K\r%b " "$MTime"
+#        install "$libreria"
+#
+#        if is_library_installed "$libreria"; then
+#            printf "\033[1A\033[2K\r%b %s está instalado.\n" "$MCheck" "$libreria"
+#        else
+#            printf "\033[1A\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$libreria" "${CRE}" "${CNC}"
+#        exit 1
+#        fi
+#    else
+#        printf "%b %s está instalado.\n" "$MCheck" "$libreria"
+#    fi
+#    sleep 1
+#done
+
+
+if is_MW_installed "mathematica" || is_MW_installed "wolfram"; then
+    printf "%b Wolfram/Mathematica está instalado.\n" "$MCheck"
+else
+    printf "%b Wolfram/Mathematica no está instalado. %s%sAquiera una licencia oficial.%s\n\n%sInstalación interrumpida.\n" "$MCross" "${CRE}" "${BLD}" "${CNC}" "${CRE}"
     exit 1
-  fi
-  sleep 1
-done
+fi
+sleep 1
 
 # DESCARGAR REPOSITORIO DE GITHUB 
 logo "Copiando repositorio de GitHub."
