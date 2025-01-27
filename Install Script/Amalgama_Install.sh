@@ -89,9 +89,11 @@ sleep 2
 paquetes_privativos=(mathematica)
 
 if [ "$DISTRO" == "ubuntu" ]; then
-  paquetes_libres=(gcc gfortran git python3 python3-tqdm python3-tabulate)
+  paquetes_libres=(gcc gfortran git python3)
+  librerias=(python3-tqdm python3-tabulate python3-numpy)
 else
-  paquetes_libres=(gcc gfortran git python python-tqdm python-tabulate)
+  paquetes_libres=(gcc gfortran git python)
+  librerias=(python-tqdm python-tabulate python-numpy)
 fi
 
 is_installed() {
@@ -134,6 +136,44 @@ for paquete in "${paquetes_libres[@]}"; do
   fi
   sleep 1
 done
+
+# Verificar si las librerías de Python están instaladas
+is_library_installed() {
+    case "$DISTRO" in 
+        "ubuntu")
+            python3 -c "import $1" &> /dev/null
+            ;;
+        "arch")
+            python -c "import $1" &> /dev/null
+            ;;
+        "fedora")
+            python -c "import $1" &> /dev/null
+            ;;
+        esac
+}
+
+for libreria in "${librerias[@]}"; do
+    if ! is_library_installed "$libreria"; then
+        printf "%b %s no está instalado." "$MCross" "$libreria"
+        sleep 3
+
+        printf "\033[2K\r%b %s se está intentando instalar." "$MTime" "$libreria"
+        sleep 1
+        printf "\033[2K\r%b " "$MTime"
+        install "$libreria"
+
+        if is_library_installed "$libreria"; then
+            printf "\033[1A\033[2K\r%b %s está instalado.\n" "$MCheck" "$libreria"
+        else
+            printf "\033[1A\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$libreria" "${CRE}" "${CNC}"
+        exit 1
+        fi
+    else
+        printf "%b %s está instalado.\n" "$MCheck" "$paquete"
+    fi
+    sleep 1
+done
+
 
 for paquete in "${paquetes_privativos[@]}"; do
   if is_installed "$paquete"; then
