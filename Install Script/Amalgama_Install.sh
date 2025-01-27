@@ -153,7 +153,7 @@ is_library_installed() {
 }
 
 for libreria in "${librerias[@]}"; do
-    if ! is_library_installed "$libreria"; then
+    if is_library_installed "$libreria"; then
         printf "%b %s no está instalado." "$MCross" "$libreria"
         sleep 3
 
