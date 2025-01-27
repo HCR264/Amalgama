@@ -136,24 +136,24 @@ install() {
 }
 
 for paquete in "${paquetes_libres[@]}"; do
-  if ! is_installed "$paquete"; then
-    printf "%b %s no está instalado." "$MCross" "$paquete"
-    sleep 3
+  #if ! is_installed "$paquete"; then
+  #  printf "%b %s no está instalado." "$MCross" "$paquete"
+  #  sleep 3
 
-    printf "\033[2K\r%b %s se está intentando instalar." "$MTime" "$paquete"
+    printf "\033[2K\r%b %s se está intentando instalar/actualizar." "$MTime" "$paquete"
     sleep 1
     printf "\033[2K\r%b " "$MTime"
     install "$paquete"
 
     if is_installed "$paquete"; then
       printf "\033[2K\r%b %s está instalado.\n" "$MCheck" "$paquete"
-    else
+    #else
       printf "\033[2K\r%b %s no se ha podido instalar.\n\n%sInstalación interrumpida.%s" "$MCross" "$paquete" "${CRE}" "${CNC}"
       exit 1
     fi
-  else
-    printf "%b %s está instalado.\n" "$MCheck" "$paquete"
-  fi
+  #else
+  #  printf "%b %s está instalado.\n" "$MCheck" "$paquete"
+  #fi
   sleep 1
 done
 
