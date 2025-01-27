@@ -92,7 +92,12 @@ if [ "$DISTRO" == "ubuntu" ]; then
   paquetes_libres=(gcc gcc-fortran git python3 python3-tqdm python3-tabulate python3-numpy)
 #  librerias=(python3-tqdm python3-tabulate python3-numpy)
 else
-  paquetes_libres=(gcc gcc-fortran git python python-tqdm python-tabulate python-numpy)
+    if [ "$DISTRO" == "fedora" ]; then
+        paquetes_libres=(gcc gcc-gfortran git python3 python3-tqdm python3-tabulate python3-numpy)
+
+    else 
+        paquetes_libres=(gcc gcc-fortran git python python-tqdm python-tabulate python-numpy)
+    fi
 #  librerias=(python-tqdm python-tabulate python-numpy)
 fi
 
