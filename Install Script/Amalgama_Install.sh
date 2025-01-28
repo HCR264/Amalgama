@@ -201,6 +201,7 @@ logo "Instalando micrOMEGAS..."
 sleep 3
 command cd Amalgama
 command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz
+command rm -r micromegas_6.1.15
 command tar -zxvf micromegas_6.1.15.tgz
 command cd micromegas_6.1.15/
 command make
