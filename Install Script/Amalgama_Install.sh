@@ -89,11 +89,11 @@ sleep 2
 paquetes_privativos=(mathematica)
 
 if [ "$DISTRO" == "ubuntu" ]; then
-  paquetes_libres=(gcc gcc-fortran git python3 python3-tqdm python3-tabulate python3-numpy)
+  paquetes_libres=(gcc gcc-fortran libx11-dev git python3 python3-tqdm python3-tabulate python3-numpy)
 #  librerias=(python3-tqdm python3-tabulate python3-numpy)
 else
     if [ "$DISTRO" == "fedora" ]; then
-        paquetes_libres=(gcc xorg-x11-server-Xorg gcc-gfortran git python3 python3-tqdm python3-tabulate python3-numpy)
+        paquetes_libres=(gcc gcc-gfortran libX11-devel git python3 python3-tqdm python3-tabulate python3-numpy)
 
     else 
         paquetes_libres=(gcc gcc-fortran git python python-tqdm python-tabulate python-numpy)
