@@ -13,7 +13,7 @@ from tqdm import tqdm
 from .menu import clear_screen, multi_select_menu, menu
 from .files import select_dir, select_dir_wth_keyword, find_files_wth_ext
 from .mO_f import create_project, get_funct, set_funct, vars_Info, parNone, parManual, parRand, seedsGen
-import concurrent.futures 
+import concurrent.futures
 
 #Posible libreria para paralelizar
 #import concurrent.futures
@@ -63,7 +63,7 @@ def main_micromegas(Global_Dir):
     clear_screen()
 
 
-#Ejecutar make 
+#Ejecutar make
     os.system(f'cd {Project_Dir} && make main=main.c')
     clear_screen()
     if not os.path.exists(f'{Project_Dir}/main'):
@@ -141,7 +141,7 @@ def main_micromegas(Global_Dir):
                 break
             except ValueError:
                 print(error_random_1)
-        num_cores = max(cpu_count()-2,1)
+        num_cores = max(cpu_count()-1,1)
         input(f'\nSe usarán {num_cores} nucleos de {max(cpu_count(),1)} dispibles.\nPresione ENTER para iniciar el barrido.')
         clear_screen()
 
@@ -175,4 +175,4 @@ def main_micromegas(Global_Dir):
 
 #        input(data)
 #        input('\nEjecución completa.')
-        
+
