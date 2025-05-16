@@ -305,10 +305,10 @@ CheckValue[matname_,Val_,blockname_,len_]:=Block[{bname=blockname,tmpdecl,IsInte
 PutMatrixIndex[id_]:=Block[{gaugeindlist,massindlist,ind,list},
   (*Initialization*)
   list=Which[
-    PRIVATE`Type[id]==="FLR",List[{GaugeBasis[id,"L"],MassBasis[id],MatrixSymbol[id,"L"]},{GaugeBasis[id,"R"],MassBasis[id],MatrixSymbol[id,"R"]}],
-    PRIVATE`Type[id]==="CWeyl",List[{GaugeBasis[id][[1]],MassBasis[id][[1]],MatrixSymbol[id][[1]]},{GaugeBasis[id][[2]],MassBasis[id][[2]],MatrixSymbol[id][[2]]}],
-    PRIVATE`Type[id]==="SPS",List[{GaugeBasis[id],MassBasis[id,"S"],MatrixSymbol[id,"S"]},{GaugeBasis[id],MassBasis[id,"PS"],MatrixSymbol[id,"PS"]}],
-    True,List[{GaugeBasis[id],MassBasis[id],MatrixSymbol[id]}]];
+    PRIVATE`Type[id]==="FLR",List[{GaugeBasis[id,"L"],MassBasis[id],FRMatrixSymbol[id,"L"]},{GaugeBasis[id,"R"],MassBasis[id],FRMatrixSymbol[id,"R"]}],
+    PRIVATE`Type[id]==="CWeyl",List[{GaugeBasis[id][[1]],MassBasis[id][[1]],FRMatrixSymbol[id][[1]]},{GaugeBasis[id][[2]],MassBasis[id][[2]],FRMatrixSymbol[id][[2]]}],
+    PRIVATE`Type[id]==="SPS",List[{GaugeBasis[id],MassBasis[id,"S"],FRMatrixSymbol[id,"S"]},{GaugeBasis[id],MassBasis[id,"PS"],FRMatrixSymbol[id,"PS"]}],
+    True,List[{GaugeBasis[id],MassBasis[id],FRMatrixSymbol[id]}]];
   (If[#[[3]]==="No matrix symbol found.",Return[]];
    gaugeindlist=$IndList/@(#[[1]]/.a_?(FieldQ[#]&)[___]:>a);
    massindlist=$IndList/@(#[[2]]/.a_?(FieldQ[#]&)[___]:>a);
@@ -476,7 +476,7 @@ CreateCCRule[rule_]:=Block[{newrule,MyCC,MyMod,MyRuleDelayed,MyRule},
 
 RotateVector[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
   (* From mass to gauge basis *)
-  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val.gbasis],List];
+  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val . gbasis],List];
   rule=rule/.MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True && $IndList[#]==={}&):>fiel-(fiel/.FR$vevRules/.fiel->0)]]/.
     MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True&)[argus__]:>fiel[argus]- (fiel[argus]/.FR$vevRules/.fiel[argus]->0)]];
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
@@ -485,7 +485,7 @@ RotateVector[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
   FR$ToGaugeBasis=DeleteDuplicates[Join[FR$ToGaugeBasis,rule]];
 
   (* From gauge to mass basis *)
-  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val].mbasis],List];
+  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val] . mbasis],List];
   rule=rule/.{MyRule[a_?(Head[#]===Symbol&),b_]:>MyRule[a,(a/.FR$vevRules/.a->0)+b],MyRule[a_[indx__],b_]:>MyRule[a[indx],(a[indx]/.FR$vevRules/.a[indx]->0)+b]};
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule=rule/.MyRule->Rule/.MyModule->Module;
@@ -503,7 +503,7 @@ RotateVector[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
 
 RotateScalar[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
 (* From mass to gauge basis *)
-  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val.gbasis],List];
+  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val . gbasis],List];
   rule=rule/.MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True && $IndList[#]==={}&):>(fiel+anti[fiel]- 2 (fiel/.FR$vevRules/.fiel->0))/Sqrt[2]]]/.
        MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True&)[argus__]:>(fiel[argus]+anti[fiel][argus]-2(fiel[argus]/.FR$vevRules/.fiel[argus]->0))/Sqrt[2]]];
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
@@ -512,7 +512,7 @@ RotateScalar[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
   FR$ToGaugeBasis=DeleteDuplicates[Join[FR$ToGaugeBasis,rule]];
 
   (* From gauge to mass basis *)
-  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val].mbasis],List];
+  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val] . mbasis],List];
   rule=rule/.{MyRule[a_?(Head[#]===Symbol&),b_]:>MyRule[a[Scalar],b/Sqrt[2]],MyRule[a_[indx__],b_]:>MyRule[a[indx,Scalar],b/Sqrt[2]]};
   rule=Join[rule/.MyRule[a_[indx___,Scalar],_]:>MyRule[a[indx],(a[indx]/.a[]->a/.FR$vevRules/.{a[indx]->0,a->0})+a[indx,Scalar]+I a[indx,Pseudoscalar]],rule];
   rule=Join[rule/.MyRule[a_[indx___,Scalar],_]:>MyRule[HC[a[indx]],(a[indx]/.a[]->a/.FR$vevRules/.{a[indx]->0,a->0})+a[indx,Scalar]-I a[indx,Pseudoscalar]],rule];
@@ -531,7 +531,7 @@ RotateScalar[mbasis_,gbasis_,Val_]:=Block[{rule,MyModule},
 
 RotatePseudoscalar[mbasis_,gbasis_,Val_]:=Block[{rule, MyModule},
 (* From mass to gauge basis *)
-  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val.gbasis],List];
+  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val . gbasis],List];
   rule=rule/.MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True && $IndList[#]==={}&):>(fiel-anti[fiel])/(Sqrt[2] I)]]/.
        MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True&)[argus__]:>(fiel[argus]-anti[fiel][argus])/(Sqrt[2] I)]];
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
@@ -540,7 +540,7 @@ RotatePseudoscalar[mbasis_,gbasis_,Val_]:=Block[{rule, MyModule},
   FR$ToGaugeBasis=DeleteDuplicates[Join[FR$ToGaugeBasis,rule]];
 
   (* From gauge to mass basis *)
-  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val].mbasis],List];
+  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val] . mbasis],List];
   rule=rule/.{MyRule[a_?(Head[#]===Symbol&),b_]:>MyRule[a[Pseudoscalar],b/Sqrt[2]],MyRule[a_[indx__],b_]:>MyRule[a[indx,Pseudoscalar],b/Sqrt[2]]};
   rule=Join[rule/.MyRule[a_[indx___,Pseudoscalar],_]:>MyRule[a[indx],(a[indx]/.a[]->a/.FR$vevRules/.{a[indx]->0,a->0})+a[indx,Scalar]+I a[indx,Pseudoscalar]],rule];
   rule=Join[rule/.MyRule[a_[indx___,Pseudoscalar],_]:>MyRule[HC[a[indx]],(a[indx]/.a[]->a/.FR$vevRules/.{a[indx]->0,a->0})+a[indx,Scalar]-I a[indx,Pseudoscalar]],rule];
@@ -573,7 +573,7 @@ RotateFermion[mbasis_,gbasis_,Val_,chir_]:=Block[{rule,rule2,MyModule},
   rule2=(Modulize[#,MyModule]&/@rule2)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule2=rule2/.MyRule->Rule/.MyModule->Module;
   If[Not[And@@(SelfConjugateQ[#]&/@mbasis)], rule2=CreateHCRule[rule2]];  
-  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val.gbasis],List];
+  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val . gbasis],List];
   rule=rule/.MyRule[a_[indx__],b_]:>MyRule[a[indx,chir],b];
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule=rule/.MyRule->Rule/.MyModule->Module;
@@ -582,7 +582,7 @@ RotateFermion[mbasis_,gbasis_,Val_,chir_]:=Block[{rule,rule2,MyModule},
   FR$ToGaugeBasis=DeleteDuplicates[Join[FR$ToGaugeBasis,rule]];
 
   (* From gauge to mass basis *)
-  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val].mbasis],List];
+  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val] . mbasis],List];
   rule=rule/.MyRule[a_,b_]:>MyRule[a,ReplaceAll[b,fiel_?(FieldQ[#]===True&)[argx__]:>PrePutIndices[chir[fiel[argx]]]]];  
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule=rule/.MyRule->Rule/.MyModule->Module;
@@ -601,7 +601,7 @@ RotateFermion4[mbasis_,gbasis_,Val_,chir_]:=Block[{rule,rule2,MyModule},
   rule2=(Modulize[#,MyModule]&/@rule2)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule2=rule2/.MyRule->Rule/.MyModule->Module;
   If[Not[And@@(SelfConjugateQ[#]&/@mbasis)], rule2=CreateHCRule[rule2]];  
-  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val.gbasis],List];
+  rule=Inner[MyRule,Patternize[mbasis],PrePutIndices[Val . gbasis],List];
   rule=rule/.MyRule[a_[indx__],b_]:>MyRule[a[indx,chir],PrePutIndices[chir[b]]/.chir[0]->0];
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule=rule/.MyRule->Rule/.MyModule->Module;
@@ -615,7 +615,7 @@ RotateFermion4[mbasis_,gbasis_,Val_,chir_]:=Block[{rule,rule2,MyModule},
   rule2=(Modulize[#,MyModule]&/@rule2)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule2=rule2/.MyRule->Rule/.MyModule->Module;
   If[Not[And@@(SelfConjugateQ[#]&/@gbasis)], rule2=CreateHCRule[rule2]];  
-  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val].mbasis],List];
+  rule=Inner[MyRule,Patternize[gbasis],PrePutIndices[ConjugateTranspose[Val] . mbasis],List];
   rule=rule/.MyRule[a_[indx__],b_]:>MyRule[a[indx,chir],PrePutIndices[chir[b]]/.chir[0]->0];  
   rule=(Modulize[#,MyModule]&/@rule)/.MyModule[{},expr_]->expr/.MyRule[a_,MyModule[{idx__},res_]]:>RuleDelayed[a,MyModule[{idx},res]];
   rule=rule/.MyRule->Rule/.MyModule->Module;
@@ -1195,7 +1195,7 @@ ComputeTreeLevelMassMatrix[lagr_,OptionsPattern[]]:=Block[{tmplag, Mixings, mix,
     If[out,
       Print["Tree level mass matrix computations achieved. Only the mass matrices necessary for the C++ code have been computed."];
       Print["Check FR$MassMatrices for the list of the MixingIDs."];
-      Print["Use MassMatrix[ MixingID ], GaugeBasis[ MixingID ], MassBasis[ MixingID ], BlockName[ MixingID ] and MatrixSymbol[ MixingID ] "<>
+      Print["Use MassMatrix[ MixingID ], GaugeBasis[ MixingID ], MassBasis[ MixingID ], BlockName[ MixingID ] and FRMatrixSymbol[ MixingID ] "<>
           "for more information on the results."];
     ];
     Return[]
@@ -1208,7 +1208,7 @@ ComputeTreeLevelMassMatrix[lagr_,OptionsPattern[]]:=Block[{tmplag, Mixings, mix,
     (If[out, 
       Print["Computation of the tree level mass matrix for the mixing id "<> ToString[#] <>" achieved."];
       Print["For the results, use MassMatrix[ " <> ToString[#]<>" ], GaugeBasis[ " <> ToString[#]<>" ], MassBasis[ " <> ToString[#]<>" ], "<>
-            "BlockName [ " <> ToString[#]<>" ] and MatrixSymbol [ "<>ToString[#]<>" ]."]
+            "BlockName [ " <> ToString[#]<>" ] and FRMatrixSymbol [ "<>ToString[#]<>" ]."]
     ];
     If[Type[#]==="SPS",Print[ { MatrixForm[MassMatrix[#,"S"]], MatrixForm[MassMatrix[#, "PS"]]} ], Print[MatrixForm[MassMatrix[#]]]])&/@mix;
     Return[]
@@ -1321,30 +1321,30 @@ BlockName[id_] := Block[{resu,mmix},
 ];
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Getting back a matrix symbol*)
 
 
-MatrixSymbol[id_,S]:=MatrixSymbol[id,"S"];
-MatrixSymbol[id_,PS]:=MatrixSymbol[id,"PS"];
+FRMatrixSymbol[id_,S]:=FRMatrixSymbol[id,"S"];
+FRMatrixSymbol[id_,PS]:=FRMatrixSymbol[id,"PS"];
 
-MatrixSymbol[id_,L]:=MatrixSymbol[id,"L"];
-MatrixSymbol[id_,R]:=MatrixSymbol[id,"R"];
-
-
-MatrixSymbol[id_,"S"] := ((MixingMatrix/.FR$MixingRules[Mix[id]])/.MixingMatrix->{"No matrix symbol found.","No matrix symbol found."})[[1]];
-
-MatrixSymbol[id_,"PS"] := ((MixingMatrix/.FR$MixingRules[Mix[id]])/.MixingMatrix->{"No matrix symbol found.","No matrix symbol found."})[[2]];
+FRMatrixSymbol[id_,L]:=FRMatrixSymbol[id,"L"];
+FRMatrixSymbol[id_,R]:=FRMatrixSymbol[id,"R"];
 
 
-MatrixSymbol[id_,letter_?(#==="L" || #==="R"&)] := Block[{resu,num},
+FRMatrixSymbol[id_,"S"] := ((MixingMatrix/.FR$MixingRules[Mix[id]])/.MixingMatrix->{"No matrix symbol found.","No matrix symbol found."})[[1]];
+
+FRMatrixSymbol[id_,"PS"] := ((MixingMatrix/.FR$MixingRules[Mix[id]])/.MixingMatrix->{"No matrix symbol found.","No matrix symbol found."})[[2]];
+
+
+FRMatrixSymbol[id_,letter_?(#==="L" || #==="R"&)] := Block[{resu,num},
   If[letter==="L", num=1, num=2];
   resu = MixingMatrix/.FR$MixingRules[Mix[id]]/.Blank->MR$Null/.MR$Null[]->"No matrix symbol found.";
   If[resu===MixingMatrix, Return["No matrix symbol found."], Return[resu[[num]]]];
 ]; 
 
 
-MatrixSymbol[id_] := Block[{resu},
+FRMatrixSymbol[id_] := Block[{resu},
   If[Type[id]==="SPS", Message[MassDiag::GBSPS]; Abort[]];
   If[Type[id]==="FLR", Message[MassDiag::GBFLR]; Abort[]];
   If[Type[id]==="F4", Message[MassDiag::GBFLR]; Abort[]];
@@ -1388,13 +1388,13 @@ MixMatrix[id_,R]:=MixMatrix[id,"R"];
 
 MixMatrix[id_,"S"] := Block[{val},
   val=(Value/.FR$MixingRules[Mix[id]]);
-  If[NoCompute[MatrixSymbol[id,"S"]]===True, Return["This matrix must be given as an external parameter by the user."]];
+  If[NoCompute[FRMatrixSymbol[id,"S"]]===True, Return["This matrix must be given as an external parameter by the user."]];
   If[val===Value, Return["Please use the numerical code."], Return[val[[1]]/.Value->"Please use the numerical code."]];
 ];
 
 MixMatrix[id_, "PS"] := Block[{val},
   val=(Value/.FR$MixingRules[Mix[id]]);
-  If[NoCompute[MatrixSymbol[id,"PS"]]===True, Return["This matrix must be given as an external parameter by the user."]];
+  If[NoCompute[FRMatrixSymbol[id,"PS"]]===True, Return["This matrix must be given as an external parameter by the user."]];
   If[val===Value, Return["Please use the numerical code."], Return[val[[2]]/.Value->"Please use the numerical code."]];
 ];
 
@@ -1402,10 +1402,10 @@ MixMatrix[id_, "PS"] := Block[{val},
 MixMatrix[id_,letter_?(#==="L" || #==="R"&)] := Block[{resu,num},
   If[letter==="L", num=1, num=2];
   resu = Value/.FR$MixingRules[Mix[id]];
-  If[NoCompute[MatrixSymbol[id,letter]]===True, Return["This matrix must be given as an external parameter by the user."]];
+  If[NoCompute[FRMatrixSymbol[id,letter]]===True, Return["This matrix must be given as an external parameter by the user."]];
   If[resu===Value, Return["Please use the numerical code."],resu=resu[[num]]];    
   If[And@@(MatchQ[#,Rule[_,_]]&/@ resu),
-    Return[Table[MatrixSymbol[id,letter][iii,jjj],{iii,Length[MassBasis[id]]},{jjj,Length[MassBasis[id]]}]/.resu],
+    Return[Table[FRMatrixSymbol[id,letter][iii,jjj],{iii,Length[MassBasis[id]]},{jjj,Length[MassBasis[id]]}]/.resu],
     Return[resu]
   ];
 ]; 
@@ -1416,10 +1416,10 @@ MixMatrix[id_] := Block[{resu},
   If[Type[id]==="FLR", Message[MassDiag::GBFLR]; Abort[]];
   If[Type[id]==="F4", Message[MassDiag::GBFLR]; Abort[]];
   resu = Value/.FR$MixingRules[Mix[id]];
-  If[NoCompute[MatrixSymbol[id]]===True, Return["This matrix must be given as an external parameter by the user."]];
+  If[NoCompute[FRMatrixSymbol[id]]===True, Return["This matrix must be given as an external parameter by the user."]];
   If[resu===Value, Return["Please use the numerical code."]];  
   If[And@@(MatchQ[#,Rule[_,_]]&/@ resu),
-    Return[Table[MatrixSymbol[id][iii,jjj],{iii,Length[MassBasis[id]]},{jjj,Length[MassBasis[id]]}]/.resu],
+    Return[Table[FRMatrixSymbol[id][iii,jjj],{iii,Length[MassBasis[id]]},{jjj,Length[MassBasis[id]]}]/.resu],
     Return[resu]
   ];
 ];  
@@ -1437,12 +1437,12 @@ MixingSummary[sbl_String]:=Block[{},
     Print["Gauge basis = ",GaugeBasis[sbl]];
     Print["Scalar sector"];
     Print["***************************************************"];
-    Print["  Mass basis = ", MassBasis[sbl,"S"], "\n  Block = ", BlockName[sbl,"S"], "\n  Symbol = ",MatrixSymbol[sbl,"S"]];
+    Print["  Mass basis = ", MassBasis[sbl,"S"], "\n  Block = ", BlockName[sbl,"S"], "\n  Symbol = ",FRMatrixSymbol[sbl,"S"]];
     Print["  Squared mass matrix = ", MatrixForm[MassMatrix[sbl, "S"]]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "S"]]];
     Print["Pseudoscalar sector"];
     Print["***************************************************"];
-    Print["  Mass basis = ", MassBasis[sbl,"PS"], "\n  Block = ", BlockName[sbl,"PS"], "\n  Symbol = ",MatrixSymbol[sbl,"PS"]];
+    Print["  Mass basis = ", MassBasis[sbl,"PS"], "\n  Block = ", BlockName[sbl,"PS"], "\n  Symbol = ",FRMatrixSymbol[sbl,"PS"]];
     Print["  Squared mass matrix = ", MatrixForm[MassMatrix[sbl, "PS"]]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "PS"]]];
     Return[];
@@ -1453,12 +1453,12 @@ MixingSummary[sbl_String]:=Block[{},
     Print["Left-handed fermions"];
     Print["****************************************************"];    
     Print["  Gauge basis = ",GaugeBasis[sbl, "L"]];
-    Print["  Block = ", BlockName[sbl,"L"], "\n  Symbol = ",MatrixSymbol[sbl,"L"]];    
+    Print["  Block = ", BlockName[sbl,"L"], "\n  Symbol = ",FRMatrixSymbol[sbl,"L"]];    
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "L"]]];    
     Print["Right-handed fermions"];
     Print["****************************************************"];
     Print["  Gauge basis = ",GaugeBasis[sbl, "R"]];
-    Print["  Block = ", BlockName[sbl,"R"], "\n  Symbol = ",MatrixSymbol[sbl,"R"]];
+    Print["  Block = ", BlockName[sbl,"R"], "\n  Symbol = ",FRMatrixSymbol[sbl,"R"]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "R"]]];
     Return[];
   ];
@@ -1468,11 +1468,11 @@ MixingSummary[sbl_String]:=Block[{},
     Print["Mass matrix = ", MatrixForm[MassMatrix[sbl]]];
     Print["Left-handed fermions"];
     Print["****************************************************"];
-    Print["  Block = ", BlockName[sbl,"L"], "\n  Symbol = ",MatrixSymbol[sbl,"L"]];    
+    Print["  Block = ", BlockName[sbl,"L"], "\n  Symbol = ",FRMatrixSymbol[sbl,"L"]];    
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "L"]]];
     Print["Right-handed fermions"];
     Print["****************************************************"];
-    Print["  Block = ", BlockName[sbl,"R"], "\n  Symbol = ",MatrixSymbol[sbl,"R"]];
+    Print["  Block = ", BlockName[sbl,"R"], "\n  Symbol = ",FRMatrixSymbol[sbl,"R"]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "R"]]];
     Return[];
   ];
@@ -1482,18 +1482,18 @@ MixingSummary[sbl_String]:=Block[{},
     Print["****************************************************"];    
     Print["  Mass basis = ", MassBasis[sbl][[1]]];    
     Print["  Gauge basis = ",GaugeBasis[sbl][[1]]];
-    Print["  Block = ", BlockName[sbl][[1]], "\n  Symbol = ",MatrixSymbol[sbl][[1]]];
+    Print["  Block = ", BlockName[sbl][[1]], "\n  Symbol = ",FRMatrixSymbol[sbl][[1]]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "L"]]];
     Print["Second basis of charged Weyl fermions"];
     Print["****************************************************"];    
     Print["  Mass basis = ", MassBasis[sbl][[2]]];    
     Print["  Gauge basis = ",GaugeBasis[sbl][[2]]];
-    Print["  Block = ", BlockName[sbl][[2]], "\n  Symbol = ",MatrixSymbol[sbl][[2]]];
+    Print["  Block = ", BlockName[sbl][[2]], "\n  Symbol = ",FRMatrixSymbol[sbl][[2]]];
     Print["  Mixing matrix = ", MatrixForm[MixMatrix[sbl, "R"]]];    
     Return[];
   ];
   Print["Gauge basis = ",GaugeBasis[sbl]];
-  Print["Mass basis = ", MassBasis[sbl], "\nBlock = ", BlockName[sbl], "\nSymbol = ",MatrixSymbol[sbl]];
+  Print["Mass basis = ", MassBasis[sbl], "\nBlock = ", BlockName[sbl], "\nSymbol = ",FRMatrixSymbol[sbl]];
   Print["Squared mass matrix = ", MatrixForm[MassMatrix[sbl]]];
   Print["The mixing matrix = ", MatrixForm[MixMatrix[sbl]]];
   Return[];

@@ -1249,7 +1249,7 @@ TotWidth::usage = "Width[in] returns the total width of the particle 'in'.";
 BranchingRatio::usage = "BranchingRatio[in -> out] returns the branching ratio of the partial in decaying into the particles specified in the list out.";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Mass diagonalization variables*)
 
 
@@ -1280,7 +1280,7 @@ FR$MassMatrices::usage="List with the mass matrix names";
 
 MassMatrix::usage="Convert a mass matrix name ot the corresponding analytical matrix";
 
-MatrixSymbol::usage="Get the symbol used for a mixing matrix";
+FRMatrixSymbol::usage="Get the symbol used for a mixing matrix";
 
 MixMatrix::usage="Get the predefined value of a mixing matrix";
 
@@ -1939,6 +1939,4 @@ Protect[LoadModel, FeynmanRules, ReadAll, FlavorExpand, MaxParticles, MinParticl
         MinCanonicalDimension, MaxCanonicalDimension, TeXOutput, WriteMGOutput, WriteSHOutput, WriteCHOutput, WriteFeynArtsOutput, ConservedQuantumNumbers, MASS, DECAY, 
         ZERO, NoUnfold, FRBlock, NoValue, NoPDG, NoBlockName, PutIndices, PrePutIndices, GetFieldContent, PrintLagrangian, FR$VersionNumber,FR$VersionDate,GenericFile,DiracIndices, 
         Sextet,FieldExpand,FR$FExpand]
-
-
 

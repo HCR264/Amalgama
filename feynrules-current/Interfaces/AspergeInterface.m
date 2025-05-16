@@ -180,12 +180,12 @@ CheckMatrices[]:=Block[{matrix,checkhermiticity},
     If[matrix[[1,2]]=!=Conjugate[matrix[[2,1]]]&&matrix[[1,2]]=!=Conjugate[matrix[[1,1]]],
        Print["The mixing ",id," leads to a non hermitian matrix. Please check it"];Abort[]]];
   Which[
-    Type[#]==="FLR", checkhermiticity[MassMatrix[#,"L"].ConjugateTranspose[MassMatrix[#,"L"]],#],
-    Type[#]==="CWeyl",checkhermiticity[MassMatrix[#].ConjugateTranspose[MassMatrix[#]],#],
+    Type[#]==="FLR", checkhermiticity[MassMatrix[#,"L"] . ConjugateTranspose[MassMatrix[#,"L"]],#],
+    Type[#]==="CWeyl",checkhermiticity[MassMatrix[#] . ConjugateTranspose[MassMatrix[#]],#],
     Type[#]==="SPS",checkhermiticity[MassMatrix[#,"PS"],#],
     True,
       If[And@@(WeylFieldQ/@MassBasis),
-        checkhermiticity[MassMatrix[#].ConjugateTranspose[MassMatrix[#]],#],
+        checkhermiticity[MassMatrix[#] . ConjugateTranspose[MassMatrix[#]],#],
         checkhermiticity[MassMatrix[#],#]]]&/@FR$MassMatrices;
   Return[]];
 
@@ -329,7 +329,7 @@ DefineParameters[OptionsPattern[]]:=Block[{def,blockdefined,blockrule,mixingslis
 (*This function is only used when the mass diagonalisation is needed.*)
 (*It appends to the files Parameters.cpp Parameters.hpp and main.cpp all the necessary declarations/initialisations and definitions needed to perform the diagonalisation.*)
 (*First step in the calculation consists in storing for every mass matrix that has been calculated the following informations:*)
-(*List[ MatrixSymbol, BlockName, Size of the matrix, the analytical expression of the matrix ]*)
+(*List[ FRMatrixSymbol, BlockName, Size of the matrix, the analytical expression of the matrix ]*)
 
 
 CalculatePDGFLR[field_]:=Block[{resu},
@@ -351,25 +351,25 @@ DefineMassMatrices[]:=Block[{tmpdef,cppstream,hppstream,mainstream,matrixelement
  tmpdef=Which[
     (*Dirac Fermions*)
     Type[#]==="FLR",
-      matrixsymbol=ToString[MatrixSymbol[#,"L"]];
+      matrixsymbol=ToString[FRMatrixSymbol[#,"L"]];
       blockname=ToString/@List[BlockName[#,"L"],BlockName[#,"R"]];
-      massmatrix=DefinitionsToStrings/@((Expand[List[MassMatrix[#].ConjugateTranspose[MassMatrix[#]], ConjugateTranspose[MassMatrix[#]].MassMatrix[#] ]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num);
+      massmatrix=DefinitionsToStrings/@((Expand[List[MassMatrix[#] . ConjugateTranspose[MassMatrix[#]], ConjugateTranspose[MassMatrix[#]] . MassMatrix[#] ]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num);
       pdgids=ToString/@(Sort/@List[CalculatePDGFLR/@MassBasis[#],CalculatePDGFLR/@MassBasis[#]]); 
       massbasis=ToString/@(MassBasis[#]/.part_[n_Integer,_]:>part[n]);
       liste=List[matrixsymbol,blockname,ToString[Length[massbasis]],massmatrix,pdgids,massbasis],
 
 (*Charged Weyls*)
    Type[#]==="CWeyl",
-      matrixsymbol=ToString/@(List[MatrixSymbol[#][[1]],MatrixSymbol[#][[2]]]);
+      matrixsymbol=ToString/@(List[FRMatrixSymbol[#][[1]],FRMatrixSymbol[#][[2]]]);
       blockname =ToString/@List[BlockName[#][[1]],BlockName[#][[2]]];
-      massmatrix=DefinitionsToStrings/@((Expand[List[MassMatrix[#].ConjugateTranspose[MassMatrix[#]],ConjugateTranspose[MassMatrix[#]].MassMatrix[#]]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num);
+      massmatrix=DefinitionsToStrings/@((Expand[List[MassMatrix[#] . ConjugateTranspose[MassMatrix[#]],ConjugateTranspose[MassMatrix[#]] . MassMatrix[#]]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num);
       pdgids=ToString/@(List[Sort[CalculatePDGWeyl/@MassBasis[#][[1]]],-Sort[CalculatePDGWeyl/@MassBasis[#][[2]]]]);
       massbasis=List[ToString/@(MassBasis[#][[1]]/.par_[n_Integer,_]:>par[n]),ToString/@(MassBasis[#][[2]]/.par_[n_Integer,_]:>par[n])];
       liste=List[matrixsymbol,blockname,ToString/@(Length/@massbasis),massmatrix,pdgids,massbasis];
       Sequence@@List[liste[[All,1]],liste[[All,2]]],
     (*Scalars and pseudo scalars*)
     Type[#]==="SPS",
-      matrixsymbol=ToString/@(List[MatrixSymbol[#,"S"],MatrixSymbol[#,"PS"]]);
+      matrixsymbol=ToString/@(List[FRMatrixSymbol[#,"S"],FRMatrixSymbol[#,"PS"]]);
       blockname=ToString/@List[BlockName[#,"S"],BlockName[#,"PS"]];
       massmatrix=DefinitionsToStrings/@((Expand[List[MassMatrix[#,"S"], MassMatrix[#,"PS"]]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num);
       pdgids=ToString/@(Sort/@List[CalculatePDGFLR/@MassBasis[#,"S"],CalculatePDGFLR/@MassBasis[#,"PS"]]);
@@ -380,14 +380,14 @@ DefineMassMatrices[]:=Block[{tmpdef,cppstream,hppstream,mainstream,matrixelement
     True,
 (*It could be a neutral Weyl*)
       If[WeylFieldQ[First[MassBasis[#]]]===True,
-        matrixsymbol=ToString[MatrixSymbol[#]];
+        matrixsymbol=ToString[FRMatrixSymbol[#]];
         blockname=ToString[BlockName[#]];
         massmatrix=DefinitionsToStrings[(Expand[MassMatrix[#]]/.n_?(NumericQ[#]&)*pars__:>N[n,30]*pars)/.Index[typ_,num_]:>num];
         pdgids=ToString[Sort[CalculatePDGWeyl/@MassBasis[#]]];
         massbasis=ToString/@(MassBasis[#]/.part_[n_Integer,_]:>part[n]);
         liste=List[matrixsymbol,blockname,ToString[Length[massbasis]],massmatrix,pdgids,massbasis,"nsq"],
 (*or a vector field*)
-        matrixsymbol=ToString[MatrixSymbol[#]];
+        matrixsymbol=ToString[FRMatrixSymbol[#]];
         blockname=ToString[BlockName[#]];
         massmatrix=DefinitionsToStrings[Expand[MassMatrix[#]]/.Index[typ_,num_]:>num];
         pdgids=ToString[Sort[CalculatePDGFLR/@MassBasis[#]]];
