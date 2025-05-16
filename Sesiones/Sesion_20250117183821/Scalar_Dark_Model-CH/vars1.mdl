@@ -1,8 +1,0 @@
-Scalar_Dark_Model
- Parameters
-  Name         | Value       |> Comment                                                                <|
-lS             |0.5          |lS                                                                        |
-MSdm           |70           |Mass of Sdm.                                                              |
-%WSdm          |0            |Width of Sdm.                                                             |
-E              |2.71828182845|The base of the natural logarithm.                                        |
-Pi             |3.14159265358|The circumference of a circle divided by the diameter.                    |
