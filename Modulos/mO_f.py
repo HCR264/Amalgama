@@ -138,12 +138,3 @@ def parRand(dir, names, valRange, seed):
     
     os.remove(temp_data)
     return value
-
-def parRandParallel(dir, names, valRange):
-    # Cada tarea paralelizada recibirá un índice único
-    results = []
-    for i in range(len(names)):  # Usamos la longitud de names para determinar el número de tareas
-        results.append(parRandSingle(dir, names, valRange, i))
-    return results
-
-

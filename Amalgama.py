@@ -12,6 +12,7 @@ import shutil
 
 from Modulos.feynrules_routine import feynrules_routine
 from Modulos.micromegas_routine_v2 import main_micromegas
+from Modulos.plotting_routine import main_plot
 from Modulos.menu import clear_screen
 from Modulos.menu import menu
 from Modulos.files import get_dir
@@ -118,8 +119,8 @@ def FeynRulesMenu():
 
 # Menu Principal
 def main_menu():
-    menu_info = "Selecciones la acción que quiere realizar."
-    options = ["Importar un modelo", "Ver modelos", "FeynRules", "MicrOMEGAS", "Nada, nadota", "Salir"]
+    menu_info = "Seleccione la acción que quiere realizar."
+    options = ["Importar un modelo", "Ver modelos", "FeynRules", "MicrOMEGAS", "Graficar", "Salir"]
 
     while True:
         selected = menu(options, menu_info)
@@ -134,9 +135,8 @@ def main_menu():
             feynrules_routine(GlobalDir, ModelsDir, FeynRulesDir)
         elif options[selected] == "MicrOMEGAS":
             main_micromegas(GlobalDir)
-        else:
-            print(f"Seleccionó: {options[selected]}")
-            input("Presiona Enter para continuar...")
+        elif options[selected] == 'Graficar':
+            main_plot(GlobalDir + '/micromegas_6.1.15')
 
 
 def create_dir(src_dir, dir_name):

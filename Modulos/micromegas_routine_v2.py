@@ -18,7 +18,7 @@ import concurrent.futures
 #Posible libreria para paralelizar
 #import concurrent.futures
 
-menu_info_1 = 'Seleccione la sesió con la que quiere trabajar:'
+menu_info_1 = 'Seleccione la sesión con la que quiere trabajar:'
 
 info_sesion_dir_1 = '\nNo se encontró ningún directorio con los archivos requeridos para ejecutar micrOMEGAS.\n\nPresione ENTER para volver.'
 info_sesion_dir_2 = '\nNo se encontraron los archivos necesarios para ejecutar micrOMEGAS.\n\nPresione ENTER para volver.'
@@ -84,14 +84,15 @@ def main_micromegas(Global_Dir):
         varCom.pop(index)
         varOpt.pop(index)
 
+#Elejir el nombre del archivo de resultados
+    resultName = input('Escribe un nombre para el archivo de resultados:')
 
-#Elejir el tipo de edición de parametros
+    #Elejir el tipo de edición de parametros
     randomOpt = menu(info_random_2, f'{info_random_1}'+'\n\t'.join(varOpt))
-
 
 #Escritura de parámetros
     Results_Dir = f'{Project_Dir}/Results'
-    resultFile = f'{Results_Dir}/results.txt'
+    resultFile = f'{Results_Dir}/results_{resultName}.txt'
     header = list(varName) + ['omega']
     os.system(f'mkdir {Results_Dir}')
     #Caso 1: Dejar los datos igual
