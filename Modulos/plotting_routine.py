@@ -9,9 +9,9 @@ import sys
 #Información de menús
 menu_info_1 = 'Seleccione el archivo que desea graficar'
 
-def main_plot(Micromegas_Dir):
+def main_plot(micromegas_dir):
 #Buscar los archivos results_xxx.txt
-    result_files = find_files_wth_keyword(Micromegas_Dir,'results')
+    result_files = find_files_wth_keyword(micromegas_dir, 'results')
     data_file = result_files[menu(result_files,menu_info_1)]
     
     with open(data_file) as file:
