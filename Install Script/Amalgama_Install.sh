@@ -86,7 +86,6 @@ fi
 logo "Verificando que los programas requeridos/lenguajes/módulos estén instalados..."
 sleep 2 
 
-paquetes_privativos=(mathematica)
 
 if [ "$DISTRO" == "ubuntu" ]; then
   paquetes_libres=(make gcc gfortran libx11-dev git python3 python3-tqdm python3-tabulate python3-numpy)
@@ -200,8 +199,8 @@ sleep 3
 logo "Instalando micrOMEGAS..."
 sleep 3
 command cd Amalgama
-command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz
 command rm -r micromegas_6.1.15
+command wget https://zenodo.org/records/13376690/files/micromegas_6.1.15.tgz
 command tar -zxvf micromegas_6.1.15.tgz
 command cd micromegas_6.1.15/
 command make

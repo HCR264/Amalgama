@@ -106,19 +106,19 @@ def parManual(dir, name, value):
     return [value]
 
 
-def parRand(dir, names, valRange):
-    value = []
-    temp_name = f'temp_{os.getpid()}.par'
-    temp_data = f'{dir}/{temp_name}'
-    with open(temp_data, 'a') as file:
-        for i, name in enumerate(names):
-            value.append(random.uniform(valRange[i][0],valRange[i][1]))
-            file.writelines(f'{name} {value[i]}\n')
-    run_main = f'cd {dir} && ./main {temp_name}'
-    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
-    value.append(float(getOmega(resultData)))
-    os.remove(temp_data)
-    return [value]
+#def parRand(dir, names, valRange):
+#    value = []
+#    temp_name = f'temp_{os.getpid()}.par'
+#    temp_data = f'{dir}/{temp_name}'
+#    with open(temp_data, 'a') as file:
+#        for i, name in enumerate(names):
+#            value.append(random.uniform(valRange[i][0],valRange[i][1]))
+#            file.writelines(f'{name} {value[i]}\n')
+#    run_main = f'cd {dir} && ./main {temp_name}'
+#    resultData = subprocess.run([run_main], shell=True, capture_output=True, text=True).stdout
+#    value.append(float(getOmega(resultData)))
+#    os.remove(temp_data)
+#    return [value]
 
 def parRand(dir, names, valRange, seed):
     value = []

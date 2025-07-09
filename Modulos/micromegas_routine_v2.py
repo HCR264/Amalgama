@@ -74,7 +74,6 @@ def main_micromegas(Global_Dir):
     varName, varVal, varCom, varOpt = vars_Info(f'{Project_Dir}/work/models/vars1.mdl')
 
 
-
 #Elejir que variables se van a cambiar
     varSelect = multi_select_menu(varOpt, info_var)
     delIndex = [i for i, element in enumerate(varOpt) if element not in varSelect]
@@ -138,7 +137,7 @@ def main_micromegas(Global_Dir):
                     print(error_random_1)
         while True:
             try:
-                randSize = int(input(info_random_5))
+                rand_size = int(input(info_random_5))
                 break
             except ValueError:
                 print(error_random_1)
@@ -148,28 +147,28 @@ def main_micromegas(Global_Dir):
 
         #Iniciar la paraleización
         data = []
-        seeds = seedsGen(randSize)
-        intsParallel = (Project_Dir, varName, varRange)
+        seeds = seedsGen(rand_size)
+        ints_parallel = (Project_Dir, varName, varRange)
         with concurrent.futures.ProcessPoolExecutor(max_workers=num_cores) as executor:
             with tqdm(total=len(seeds)) as progress:
                 futures = []
                 for seed in seeds:
-                    future = executor.submit(parRand, *intsParallel, seed)
+                    future = executor.submit(parRand, *ints_parallel, seed)
                     future.add_done_callback(lambda p: progress.update())
                     futures.append(future)
 
-            #futures = [executor.submit(parRand, *intsParallel, seed) for seed in seeds]
+            #futures = [executor.submit(parRand, *ints_parallel, seed) for seed in seeds]
                 for future in concurrent.futures.as_completed(futures):
                     result = future.result()
                     data.append(result)
 
 
         #Inicia la paralelización
-#        intsParallel = [(Project_Dir, varName, varRange) for _ in range(randSize)]
+#        ints_parallel = [(Project_Dir, varName, varRange) for _ in range(rand_size)]
 #
 #        print('Amalgama está ejecutando el barrido con parámetros aleatorios...')
 #        with Pool(processes=num_cpus) as pool:
-#            data = pool.starmap(parRand, intsParallel)
+#            data = pool.starmap(parRand, ints_parallel)
 
         with open(f'{resultFile}', 'a') as file:
             file.write(tabulate(data,headers=header, tablefmt='plain'))
