@@ -201,7 +201,7 @@ sleep 3
 command cd Amalgama
 command rm -r micromegas_6.1.15
 command wget --timeout=5 https://zenodo.org/records/14978911/files/micromegas_6.2.3.tgz?download=1
-command tar -zxvf micromegas_6.1.15.tgz
+command tar -zxvf micromegas_6.2.3.tgz
 command cd micromegas_6.1.15/
 command make
 sleep 3
