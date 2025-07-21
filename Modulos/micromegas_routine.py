@@ -159,7 +159,7 @@ def getPlotData(resultsDir, dataDir, parDir, varNames):
 
 def main_micromegas(Global_Dir):
     Sesions_Dir = Global_Dir + '/Sesiones'
-    Micromegas_Dir = Global_Dir + '/micromegas_6.1.15'
+    Micromegas_Dir = Global_Dir + '/micromegas_6.2.3'
 
     menu_info = 'Seleccione la sesión con la que quiere trabajar:'
     Sesion_Dir = Sesions_Dir + '/' + select_dir(Sesions_Dir, menu_info)

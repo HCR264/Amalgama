@@ -136,7 +136,7 @@ def main_menu():
         elif options[selected] == "MicrOMEGAS":
             main_micromegas(GlobalDir)
         elif options[selected] == 'Graficar':
-            main_plot(GlobalDir + '/micromegas_6.1.15')
+            main_plot(GlobalDir + '/micromegas_6.2.3')
 
 
 def create_dir(src_dir, dir_name):

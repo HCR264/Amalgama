@@ -40,7 +40,7 @@ error_random_1= '\nError. Ingrese datos válidos.'
 def main_micromegas(Global_Dir):
 #Definir Directorios principales
     Sesions_Dir = Global_Dir + '/Sesiones'
-    Micromegas_Dir = Global_Dir + '/micromegas_6.1.15'
+    Micromegas_Dir = Global_Dir + '/micromegas_6.2.3'
 
 #Seleccionar sesion con la que se va a trabajar
     Sesion_Dir = f'{Sesions_Dir}/{select_dir(Sesions_Dir, menu_info_1)}'
